@@ -1,83 +1,285 @@
-<!-- OPCIÓN ADMINISTRADOR EN EL MENÚ -->
-<li><a href="#" onclick="loginAdmin()">👨‍💼 Administrador</a></li>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fashion Style</title>
 
-<!-- CARRITO -->
-<div id="carrito" style="
-position:fixed;
-right:20px;
-top:100px;
-width:300px;
-background:white;
-padding:15px;
-border-radius:10px;
-box-shadow:0 0 15px rgba(0,0,0,.2);">
+<style>
 
-    <h2>🛒 Carrito</h2>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-    <ul id="lista-carrito"></ul>
+body{
+    background:#f5f5f5;
+}
 
-    <p>
-        <strong>
-            Total: S/ <span id="total">0.00</span>
-        </strong>
-    </p>
+/* MENÚ */
 
-    <h3>🚚 Método de Entrega</h3>
+.navbar{
+    background:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 50px;
+    box-shadow:0 2px 10px rgba(0,0,0,.1);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
 
-    <select id="envio" style="
-    width:100%;
-    padding:10px;
-    border-radius:5px;">
+.logo{
+    font-size:28px;
+    font-weight:bold;
+}
 
-        <option>🚚 Delivery Motorizado</option>
-        <option>🏪 Recojo en Tienda</option>
-        <option>⚡ Envío Express</option>
+.navbar ul{
+    display:flex;
+    list-style:none;
+    gap:25px;
+}
 
-    </select>
+.navbar a{
+    text-decoration:none;
+    color:black;
+    font-weight:bold;
+}
 
-    <br><br>
+/* BANNER */
 
-    <button onclick="finalizarCompra()"
-    style="
-    width:100%;
-    background:green;
+.hero{
+    height:500px;
+    background:url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:60px;
+}
+
+.hero p{
+    font-size:24px;
+    margin:15px 0;
+}
+
+.hero button{
+    background:black;
     color:white;
     border:none;
-    padding:10px;
-    border-radius:5px;">
+    padding:15px 30px;
+    font-size:18px;
+    border-radius:5px;
+    cursor:pointer;
+}
 
-        Finalizar Compra
+/* PRODUCTOS */
 
-    </button>
+.titulo{
+    text-align:center;
+    margin:40px 0;
+}
 
-    <br><br>
+.productos{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+    padding:20px;
+}
 
-    <button onclick="vaciarCarrito()"
-    style="
+.card{
+    width:280px;
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 0 15px rgba(0,0,0,.1);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
     width:100%;
+    height:350px;
+    object-fit:cover;
+}
+
+.info{
+    padding:15px;
+    text-align:center;
+}
+
+.precio{
+    color:#d10000;
+    font-size:22px;
+    margin:10px 0;
+}
+
+.btn{
+    background:black;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+/* CARRITO */
+
+#carrito{
+    position:fixed;
+    right:20px;
+    top:100px;
+    width:280px;
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,.2);
+}
+
+#carrito h2{
+    margin-bottom:10px;
+}
+
+#lista-carrito{
+    margin-left:20px;
+}
+
+.total{
+    margin-top:10px;
+    font-weight:bold;
+}
+
+.vaciar{
+    width:100%;
+    margin-top:10px;
     background:red;
     color:white;
     border:none;
     padding:10px;
-    border-radius:5px;">
+    border-radius:5px;
+    cursor:pointer;
+}
 
+/* ADMIN */
+
+.admin{
+    background:white;
+    margin:40px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+footer{
+    background:black;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">FASHION STYLE</div>
+
+    <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Hombre</a></li>
+        <li><a href="#">Mujer</a></li>
+        <li><a href="#">Ofertas</a></li>
+        <li><a href="#">Contacto</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <h1>Nueva Colección 2026</h1>
+    <p>Moda para cada estilo</p>
+    <button>Comprar Ahora</button>
+</section>
+
+<h2 class="titulo">Productos Destacados</h2>
+
+<section class="productos">
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80">
+        <div class="info">
+            <h3>Polo Casual</h3>
+            <p class="precio">S/ 59.90</p>
+            <button class="btn" onclick="agregarCarrito('Polo Casual',59.90)">
+                Agregar al Carrito
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80">
+        <div class="info">
+            <h3>Jeans Moderno</h3>
+            <p class="precio">S/ 89.90</p>
+            <button class="btn" onclick="agregarCarrito('Jeans Moderno',89.90)">
+                Agregar al Carrito
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80">
+        <div class="info">
+            <h3>Vestido Elegante</h3>
+            <p class="precio">S/ 129.90</p>
+            <button class="btn" onclick="agregarCarrito('Vestido Elegante',129.90)">
+                Agregar al Carrito
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80">
+        <div class="info">
+            <h3>Chaqueta Premium</h3>
+            <p class="precio">S/ 149.90</p>
+            <button class="btn" onclick="agregarCarrito('Chaqueta Premium',149.90)">
+                Agregar al Carrito
+            </button>
+        </div>
+    </div>
+
+</section>
+
+<div id="carrito">
+    <h2>🛒 Carrito</h2>
+
+    <ul id="lista-carrito"></ul>
+
+    <p class="total">
+        Total: S/ <span id="total">0.00</span>
+    </p>
+
+    <button class="vaciar" onclick="vaciarCarrito()">
         Vaciar Carrito
-
     </button>
-
 </div>
 
-<!-- PANEL ADMINISTRADOR -->
-<div class="admin"
-id="panelAdmin"
-style="
-display:none;
-background:white;
-margin:40px;
-padding:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,.2);">
-
+<div class="admin">
     <h2>👨‍💼 Panel Administrador</h2>
 
     <p>Productos agregados:</p>
@@ -90,90 +292,40 @@ box-shadow:0 0 10px rgba(0,0,0,.2);">
         Cantidad total:
         <strong id="cantidad">0</strong>
     </p>
-
 </div>
+
+<footer>
+    <p>© 2026 Fashion Style - Todos los derechos reservados</p>
+</footer>
 
 <script>
 
 let carrito = [];
 let total = 0;
 
-/* USUARIO ADMIN */
-
-const usuarioAdmin = "admin";
-const claveAdmin = "1234";
-
-/* LOGIN ADMIN */
-
-function loginAdmin(){
-
-    let usuario =
-    prompt("Ingrese usuario:");
-
-    let clave =
-    prompt("Ingrese contraseña:");
-
-    if(
-        usuario === usuarioAdmin &&
-        clave === claveAdmin
-    ){
-
-        alert("Bienvenido Administrador");
-
-        document
-        .getElementById("panelAdmin")
-        .style.display = "block";
-
-    }
-    else{
-
-        alert(
-        "Usuario o contraseña incorrectos"
-        );
-
-    }
-
-}
-
-/* AGREGAR PRODUCTOS */
-
-function agregarCarrito(nombre,precio){
+function agregarCarrito(nombre, precio){
 
     carrito.push({
-
         nombre:nombre,
         precio:precio
-
     });
 
     total += precio;
 
     actualizar();
-
 }
-
-/* ACTUALIZAR */
 
 function actualizar(){
 
-    let lista =
-    document.getElementById(
-    "lista-carrito"
-    );
-
-    let admin =
-    document.getElementById(
-    "admin-lista"
-    );
+    let lista = document.getElementById("lista-carrito");
+    let admin = document.getElementById("admin-lista");
 
     lista.innerHTML = "";
     admin.innerHTML = "";
 
     carrito.forEach((producto,index)=>{
 
-        let item =
-        document.createElement("li");
-
+        let item = document.createElement("li");
         item.textContent =
         producto.nombre +
         " - S/ " +
@@ -181,9 +333,7 @@ function actualizar(){
 
         lista.appendChild(item);
 
-        let adminItem =
-        document.createElement("li");
-
+        let adminItem = document.createElement("li");
         adminItem.textContent =
         (index+1) +
         ". " +
@@ -195,66 +345,25 @@ function actualizar(){
 
     });
 
-    document
-    .getElementById("total")
-    .textContent =
+    document.getElementById("total").textContent =
     total.toFixed(2);
 
-    document
-    .getElementById("cantidad")
-    .textContent =
+    document.getElementById("cantidad").textContent =
     carrito.length;
-
 }
-
-/* VACIAR */
 
 function vaciarCarrito(){
 
     carrito = [];
-
     total = 0;
 
     actualizar();
-
 }
 
-/* FINALIZAR COMPRA */
+</script>
 
-function finalizarCompra(){
-
-    if(carrito.length === 0){
-
-        alert(
-        "Tu carrito está vacío"
-        );
-
-        return;
-
-    }
-
-    let metodo =
-    document.getElementById(
-    "envio"
-    ).value;
-
-    alert(
-
-        "✅ Compra realizada\n\n" +
-
-        "Método de entrega: " +
-
-        metodo +
-
-        "\n\nTotal: S/ " +
-
-        total.toFixed(2)
-
-    );
-
-    carrito = [];
-
-    total = 0;
+</body>
+</html>
 
     actualizar();
 
