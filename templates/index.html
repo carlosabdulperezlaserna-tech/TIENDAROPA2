@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fashion Style</title>
+<title>Fashion Perú</title>
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -18,15 +17,13 @@ body{
     background:#f5f5f5;
 }
 
-/* MENÚ */
-
-.navbar{
-    background:white;
+header{
+    background:#111;
+    color:white;
+    padding:20px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:20px 50px;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
     position:sticky;
     top:0;
     z-index:1000;
@@ -37,27 +34,20 @@ body{
     font-weight:bold;
 }
 
-.navbar ul{
-    display:flex;
-    list-style:none;
-    gap:25px;
+.cart-btn{
+    background:#e60023;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
 }
-
-.navbar a{
-    text-decoration:none;
-    color:black;
-    font-weight:bold;
-}
-
-/* BANNER */
 
 .hero{
-    height:500px;
-    background:url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80');
-    background-size:cover;
-    background-position:center;
+    height:60vh;
+    background:url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1600') center/cover;
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
     color:white;
@@ -65,45 +55,24 @@ body{
 }
 
 .hero h1{
-    font-size:60px;
-}
-
-.hero p{
-    font-size:24px;
-    margin:15px 0;
-}
-
-.hero button{
-    background:black;
-    color:white;
-    border:none;
-    padding:15px 30px;
-    font-size:18px;
-    border-radius:5px;
-    cursor:pointer;
-}
-
-/* PRODUCTOS */
-
-.titulo{
-    text-align:center;
-    margin:40px 0;
+    font-size:50px;
+    background:rgba(0,0,0,.5);
+    padding:20px;
+    border-radius:10px;
 }
 
 .productos{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:25px;
-    padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+    padding:40px;
 }
 
 .card{
-    width:280px;
     background:white;
-    border-radius:10px;
+    border-radius:12px;
     overflow:hidden;
-    box-shadow:0 0 15px rgba(0,0,0,.1);
+    box-shadow:0 3px 10px rgba(0,0,0,.2);
     transition:.3s;
 }
 
@@ -119,253 +88,238 @@ body{
 
 .info{
     padding:15px;
-    text-align:center;
 }
 
-.precio{
-    color:#d10000;
-    font-size:22px;
-    margin:10px 0;
-}
-
-.btn{
-    background:black;
-    color:white;
-    border:none;
-    padding:10px 20px;
-    cursor:pointer;
-    border-radius:5px;
-}
-
-/* CARRITO */
-
-#carrito{
-    position:fixed;
-    right:20px;
-    top:100px;
-    width:280px;
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    box-shadow:0 0 15px rgba(0,0,0,.2);
-}
-
-#carrito h2{
+.info h3{
     margin-bottom:10px;
 }
 
-#lista-carrito{
-    margin-left:20px;
-}
-
-.total{
-    margin-top:10px;
+.precio{
+    color:#e60023;
+    font-size:22px;
     font-weight:bold;
 }
 
-.vaciar{
+.btn{
     width:100%;
-    margin-top:10px;
-    background:red;
-    color:white;
+    padding:12px;
     border:none;
-    padding:10px;
-    border-radius:5px;
+    background:#111;
+    color:white;
+    margin-top:10px;
+    cursor:pointer;
+    border-radius:8px;
+}
+
+.btn:hover{
+    background:#333;
+}
+
+.carrito{
+    position:fixed;
+    top:0;
+    right:-450px;
+    width:450px;
+    height:100%;
+    background:white;
+    box-shadow:-5px 0 10px rgba(0,0,0,.3);
+    transition:.4s;
+    padding:20px;
+    overflow:auto;
+    z-index:2000;
+}
+
+.carrito.active{
+    right:0;
+}
+
+.cerrar{
+    float:right;
+    font-size:28px;
     cursor:pointer;
 }
 
-/* ADMIN */
+.item{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+    border-bottom:1px solid #ddd;
+    padding-bottom:10px;
+}
 
-.admin{
-    background:white;
-    margin:40px;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 0 15px rgba(0,0,0,.1);
+.total{
+    font-size:25px;
+    margin-top:20px;
+    font-weight:bold;
+}
+
+.pagar{
+    width:100%;
+    background:green;
+    color:white;
+    border:none;
+    padding:15px;
+    margin-top:20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:18px;
 }
 
 footer{
-    background:black;
+    background:#111;
     color:white;
     text-align:center;
     padding:20px;
-    margin-top:40px;
 }
-
 </style>
 </head>
-
 <body>
 
-<nav class="navbar">
-    <div class="logo">FASHION STYLE</div>
-
-    <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Hombre</a></li>
-        <li><a href="#">Mujer</a></li>
-        <li><a href="#">Ofertas</a></li>
-        <li><a href="#">Contacto</a></li>
-    </ul>
-</nav>
+<header>
+    <div class="logo">FASHION PERÚ</div>
+    <button class="cart-btn" onclick="abrirCarrito()">
+        🛒 Carrito (<span id="contador">0</span>)
+    </button>
+</header>
 
 <section class="hero">
     <h1>Nueva Colección 2026</h1>
-    <p>Moda para cada estilo</p>
-    <button>Comprar Ahora</button>
 </section>
-
-<h2 class="titulo">Productos Destacados</h2>
 
 <section class="productos">
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80">
-        <div class="info">
-            <h3>Polo Casual</h3>
-            <p class="precio">S/ 59.90</p>
-            <button class="btn" onclick="agregarCarrito('Polo Casual',59.90)">
-                Agregar al Carrito
-            </button>
-        </div>
-    </div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" alt="">
+<div class="info">
+<h3>Vestido Elegante</h3>
+<p class="precio">S/ 99</p>
+<button class="btn" onclick="agregar('Vestido Elegante',99)">Agregar al carrito</button>
+</div>
+</div>
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80">
-        <div class="info">
-            <h3>Jeans Moderno</h3>
-            <p class="precio">S/ 89.90</p>
-            <button class="btn" onclick="agregarCarrito('Jeans Moderno',89.90)">
-                Agregar al Carrito
-            </button>
-        </div>
-    </div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500" alt="">
+<div class="info">
+<h3>Polo Urbano</h3>
+<p class="precio">S/ 59</p>
+<button class="btn" onclick="agregar('Polo Urbano',59)">Agregar al carrito</button>
+</div>
+</div>
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80">
-        <div class="info">
-            <h3>Vestido Elegante</h3>
-            <p class="precio">S/ 129.90</p>
-            <button class="btn" onclick="agregarCarrito('Vestido Elegante',129.90)">
-                Agregar al Carrito
-            </button>
-        </div>
-    </div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" alt="">
+<div class="info">
+<h3>Jeans Premium</h3>
+<p class="precio">S/ 89</p>
+<button class="btn" onclick="agregar('Jeans Premium',89)">Agregar al carrito</button>
+</div>
+</div>
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80">
-        <div class="info">
-            <h3>Chaqueta Premium</h3>
-            <p class="precio">S/ 149.90</p>
-            <button class="btn" onclick="agregarCarrito('Chaqueta Premium',149.90)">
-                Agregar al Carrito
-            </button>
-        </div>
-    </div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500" alt="">
+<div class="info">
+<h3>Chaqueta Moderna</h3>
+<p class="precio">S/ 149</p>
+<button class="btn" onclick="agregar('Chaqueta Moderna',149)">Agregar al carrito</button>
+</div>
+</div>
 
 </section>
 
-<div id="carrito">
-    <h2>🛒 Carrito</h2>
+<div class="carrito" id="carrito">
+<span class="cerrar" onclick="cerrarCarrito()">✖</span>
 
-    <ul id="lista-carrito"></ul>
+<h2>Mi Carrito</h2>
 
-    <p class="total">
-        Total: S/ <span id="total">0.00</span>
-    </p>
+<div id="lista"></div>
 
-    <button class="vaciar" onclick="vaciarCarrito()">
-        Vaciar Carrito
-    </button>
+<div class="total">
+Total: S/ <span id="total">0</span>
 </div>
 
-<div class="admin">
-    <h2>👨‍💼 Panel Administrador</h2>
+<button class="pagar" onclick="pagar()">
+Pagar Ahora
+</button>
 
-    <p>Productos agregados:</p>
-
-    <ul id="admin-lista"></ul>
-
-    <br>
-
-    <p>
-        Cantidad total:
-        <strong id="cantidad">0</strong>
-    </p>
 </div>
 
 <footer>
-    <p>© 2026 Fashion Style - Todos los derechos reservados</p>
+© 2026 Fashion Perú - Todos los derechos reservados
 </footer>
 
 <script>
 
-let carrito = [];
-let total = 0;
+let carrito=[];
+let total=0;
 
-function agregarCarrito(nombre, precio){
+function agregar(nombre,precio){
 
-    carrito.push({
-        nombre:nombre,
-        precio:precio
-    });
+carrito.push({
+nombre:nombre,
+precio:precio
+});
 
-    total += precio;
+total+=precio;
 
-    actualizar();
+actualizar();
 }
 
 function actualizar(){
 
-    let lista = document.getElementById("lista-carrito");
-    let admin = document.getElementById("admin-lista");
+document.getElementById("contador").innerText=carrito.length;
 
-    lista.innerHTML = "";
-    admin.innerHTML = "";
+let lista=document.getElementById("lista");
+lista.innerHTML="";
 
-    carrito.forEach((producto,index)=>{
+carrito.forEach((producto,index)=>{
 
-        let item = document.createElement("li");
-        item.textContent =
-        producto.nombre +
-        " - S/ " +
-        producto.precio.toFixed(2);
+lista.innerHTML+=`
+<div class="item">
+<span>${producto.nombre}</span>
+<span>S/ ${producto.precio}</span>
+</div>
+`;
 
-        lista.appendChild(item);
+});
 
-        let adminItem = document.createElement("li");
-        adminItem.textContent =
-        (index+1) +
-        ". " +
-        producto.nombre +
-        " - S/ " +
-        producto.precio.toFixed(2);
-
-        admin.appendChild(adminItem);
-
-    });
-
-    document.getElementById("total").textContent =
-    total.toFixed(2);
-
-    document.getElementById("cantidad").textContent =
-    carrito.length;
+document.getElementById("total").innerText=total;
 }
 
-function vaciarCarrito(){
+function abrirCarrito(){
+document.getElementById("carrito").classList.add("active");
+}
 
-    carrito = [];
-    total = 0;
+function cerrarCarrito(){
+document.getElementById("carrito").classList.remove("active");
+}
 
-    actualizar();
+function pagar(){
+
+if(carrito.length===0){
+alert("Tu carrito está vacío.");
+return;
+}
+
+let metodo=prompt(
+"Ingrese método de pago:\n\n1. Yape\n2. Plin\n3. Tarjeta"
+);
+
+if(metodo){
+
+alert(
+"Compra realizada con éxito.\n\nTotal pagado: S/ "+total
+);
+
+carrito=[];
+total=0;
+actualizar();
+cerrarCarrito();
+
+}
 }
 
 </script>
 
 </body>
 </html>
-
-</script>
-
-</body>
 </html>
