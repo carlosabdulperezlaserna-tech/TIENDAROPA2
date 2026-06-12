@@ -1,22 +1,23 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Ropa & Panel Admin</title>
+    <title>KG Store & Panel Admin</title>
     <!-- Iconos de FontAwesome para replicar las imágenes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* --- ESTILOS GLOBALES (Basados en image_76bce6.png e image_76b9f9.png) --- */
+        /* --- ESTILOS GLOBALES (Modo Oscuro Profundo basado en image_76bce6.png e image_76b9f9.png) --- */
         :root {
-            --bg-principal: #121212;
-            --bg-tarjeta: #1e1e1e;
-            --bg-inputs: #2a2a2a;
-            --naranja-accento: #e67e22;
+            --bg-principal: #0a0a0a;  
+            --bg-tarjeta: #141414;    
+            --bg-inputs: #1f1f1f;     
+            --naranja-accento: #e67e22; 
             --naranja-hover: #cf6d1f;
             --texto-blanco: #ffffff;
-            --texto-gris: #a0a0a0;
-            --borde-gris: #333333;
+            --texto-gris: #8e8e8e;
+            --borde-gris: #262626;    
         }
 
         * {
@@ -35,7 +36,7 @@
         /* --- NAVEGACIÓN --- */
         header {
             background-color: var(--bg-tarjeta);
-            border-bottom: 2px solid var(--borde-gris);
+            border-bottom: 1px solid var(--borde-gris);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -47,15 +48,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2rem;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 900;
             color: var(--naranja-accento);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            cursor: pointer;
         }
 
         .nav-menu {
@@ -119,6 +120,8 @@
             margin-bottom: 2rem;
             position: relative;
             padding-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .section-title::after {
@@ -127,9 +130,96 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
+            width: 40px;
             height: 3px;
             background-color: var(--naranja-accento);
+        }
+
+        /* --- SECCIÓN INICIO (HERO & ACCESOS DIRECTOS) --- */
+        .hero {
+            background: linear-gradient(rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.95)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200') center/cover;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border: 1px solid var(--borde-gris);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+
+        .hero h1 span {
+            color: var(--naranja-accento);
+        }
+
+        .hero p {
+            color: var(--texto-gris);
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+
+        .categories-banners {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .categories-banners { grid-template-columns: 1fr; }
+        }
+
+        .banner-card {
+            position: relative;
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid var(--borde-gris);
+        }
+
+        .banner-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s, filter 0.3s;
+            filter: brightness(0.6);
+        }
+
+        .banner-card:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.75);
+        }
+
+        .banner-text {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            z-index: 2;
+        }
+
+        .banner-text h3 {
+            font-size: 2rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .banner-text span {
+            color: var(--naranja-accento);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         /* --- CUADRÍCULA DE PRODUCTOS --- */
@@ -158,7 +248,12 @@
             width: 100%;
             height: 280px;
             object-fit: cover;
-            background-color: #2e2e2e;
+            filter: brightness(0.9);
+            transition: filter 0.3s;
+        }
+
+        .product-card:hover .product-img {
+            filter: brightness(1);
         }
 
         .product-info {
@@ -166,6 +261,14 @@
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+        }
+
+        .product-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--naranja-accento);
+            font-weight: bold;
+            margin-bottom: 0.25rem;
         }
 
         .product-name {
@@ -187,7 +290,7 @@
             color: white;
             border: none;
             padding: 0.7rem;
-            border-radius: 50px;
+            border-radius: 4px;
             font-weight: bold;
             cursor: pointer;
             transition: background 0.3s;
@@ -209,11 +312,10 @@
         .login-card {
             background-color: var(--bg-tarjeta);
             border: 1px solid var(--borde-gris);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 2.5rem;
             width: 100%;
             max-width: 450px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
         .login-header {
@@ -243,7 +345,7 @@
             border: 1px solid var(--borde-gris);
             color: var(--texto-blanco);
             padding: 0.8rem 1rem;
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 1rem;
             transition: border-color 0.3s;
         }
@@ -258,7 +360,7 @@
             color: white;
             border: none;
             padding: 0.8rem 2rem;
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
@@ -346,7 +448,7 @@
         }
 
         .summary-total {
-            border-top: 2px solid var(--borde-gris);
+            border-top: 1px solid var(--borde-gris);
             padding-top: 1rem;
             font-size: 1.3rem;
             font-weight: bold;
@@ -390,7 +492,7 @@
 
         table th {
             color: var(--naranja-accento);
-            background-color: rgba(230, 126, 34, 0.1);
+            background-color: #1a1a1a;
             position: sticky;
             top: 0;
             z-index: 10;
@@ -417,7 +519,7 @@
         .contacto-card {
             background-color: var(--bg-tarjeta);
             border-left: 4px solid var(--naranja-accento);
-            border-radius: 8px;
+            border-radius: 4px;
             padding: 1.2rem 1.5rem;
             display: flex;
             align-items: center;
@@ -461,10 +563,11 @@
     <!-- MENÚ DE NAVEGACIÓN -->
     <header>
         <div class="nav-container">
-            <div class="logo">ModaExpress</div>
+            <div class="logo" onclick="switchView('inicio')">KG</div>
             <nav>
                 <ul class="nav-menu">
-                    <li><a onclick="switchView('hombre')" id="nav-hombre" class="active">Hombres</a></li>
+                    <li><a onclick="switchView('inicio')" id="nav-inicio" class="active">Inicio</a></li>
+                    <li><a onclick="switchView('hombre')" id="nav-hombre">Hombres</a></li>
                     <li><a onclick="switchView('mujer')" id="nav-mujer">Mujeres</a></li>
                     <li><a onclick="switchView('contacto')" id="nav-contacto">Contacto</a></li>
                     <li><a onclick="switchView('login')" id="nav-login"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
@@ -479,8 +582,39 @@
 
     <div class="container">
 
+        <!-- VISTA: INICIO (Muestra banners de categorías y productos destacados combinados) -->
+        <section id="view-inicio" class="view-section active">
+            <div class="hero">
+                <h1>BIENVENIDO A <span>KG</span></h1>
+                <p>Descubre las últimas tendencias urbanas y casuales con envíos gratuitos a todo Lima.</p>
+            </div>
+
+            <!-- Banners de Acceso Directo -->
+            <div class="categories-banners">
+                <div class="banner-card" onclick="switchView('hombre')">
+                    <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=600" alt="Hombres">
+                    <div class="banner-text">
+                        <h3>Hombres</h3>
+                        <span>Ver catálogo <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+                <div class="banner-card" onclick="switchView('mujer')">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600" alt="Mujeres">
+                    <div class="banner-text">
+                        <h3>Mujeres</h3>
+                        <span>Ver catálogo <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Productos Destacados</h2>
+            <div class="products-grid" id="grid-inicio">
+                <!-- Inyección dinámica combinada -->
+            </div>
+        </section>
+
         <!-- VISTA: HOMBRE -->
-        <section id="view-hombre" class="view-section active">
+        <section id="view-hombre" class="view-section">
             <h2 class="section-title">Colección Varones</h2>
             <div class="products-grid" id="grid-hombre">
                 <!-- Inyección dinámica -->
@@ -525,7 +659,7 @@
                         <span>Total:</span>
                         <span id="summary-total">S/. 0.00</span>
                     </div>
-                    <button class="btn-add-cart" onclick="checkout()" style="border-radius: 6px; padding: 1rem;">Procesar Pedido</button>
+                    <button class="btn-add-cart" onclick="checkout()" style="padding: 1rem;">Procesar Pedido</button>
                 </div>
             </div>
         </section>
@@ -557,7 +691,7 @@
 
         <!-- VISTA: PANEL DE ADMINISTRACIÓN -->
         <section id="view-admin" class="view-section">
-            <h2 class="section-title">Panel de Control / Inventario</h2>
+            <h2 class="section-title">Panel de Control / Inventario (KG)</h2>
             <div class="admin-layout">
                 <!-- Formulario -->
                 <div class="admin-box">
@@ -637,7 +771,7 @@
     </div>
 
     <script>
-        /* --- BASE DE DATOS LOCAL AMPLIADA --- */
+        /* --- BASE DE DATOS LOCAL --- */
         let productos = [
             // SECCIÓN HOMBRES
             { id: 1, name: "Chaqueta Denim Premium", price: 189.90, gender: "hombre", img: "https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=500" },
@@ -668,34 +802,54 @@
             
             const targetLink = document.getElementById(`nav-${viewName}`);
             if(targetLink) targetLink.classList.add('active');
+
+            // Scroll automático arriba al cambiar de vista
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        /* --- RENDERIZADO DE TIENDA --- */
+        /* --- RENDERIZADO DE TIENDA (INICIO, HOMBRES Y MUJERES) --- */
         function renderStore() {
+            const gridInicio = document.getElementById('grid-inicio');
             const gridHombre = document.getElementById('grid-hombre');
             const gridMujer = document.getElementById('grid-mujer');
             
+            gridInicio.innerHTML = '';
             gridHombre.innerHTML = '';
             gridMujer.innerHTML = '';
 
-            productos.forEach(prod => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <img src="${prod.img || 'https://via.placeholder.com/250'}" alt="${prod.name}" class="product-img">
-                    <div class="product-info">
-                        <h3 class="product-name">${prod.name}</h3>
-                        <div class="product-price">S/. ${prod.price.toFixed(2)}</div>
-                        <button class="btn-add-cart" onclick="addToCart(${prod.id})">Agregar al carrito</button>
-                    </div>
-                `;
+            // Mostrar un mix de productos en la sección Inicio (primeros 4 de cada género)
+            const destacadosHombre = productos.filter(p => p.gender === 'hombre').slice(0, 4);
+            const destacadosMujer = productos.filter(p => p.gender === 'mujer').slice(0, 4);
+            const destacadosMix = [...destacadosHombre, ...destacadosMujer];
 
+            // Render en Inicio
+            destacadosMix.forEach(prod => {
+                gridInicio.appendChild(createProductCard(prod, true));
+            });
+
+            // Render en catálogos específicos
+            productos.forEach(prod => {
                 if(prod.gender === 'hombre') {
-                    gridHombre.appendChild(card);
+                    gridHombre.appendChild(createProductCard(prod, false));
                 } else {
-                    gridMujer.appendChild(card);
+                    gridMujer.appendChild(createProductCard(prod, false));
                 }
             });
+        }
+
+        function createProductCard(prod, showBadge) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${prod.img || 'https://via.placeholder.com/250'}" alt="${prod.name}" class="product-img" loading="lazy">
+                <div class="product-info">
+                    ${showBadge ? `<div class="product-badge">${prod.gender === 'hombre' ? 'Varón' : 'Dama'}</div>` : ''}
+                    <h3 class="product-name">${prod.name}</h3>
+                    <div class="product-price">S/. ${prod.price.toFixed(2)}</div>
+                    <button class="btn-add-cart" onclick="addToCart(${prod.id})">Agregar al carrito</button>
+                </div>
+            `;
+            return card;
         }
 
         /* --- MANEJO DEL CARRITO --- */
@@ -718,7 +872,7 @@
             cartContainer.innerHTML = '';
 
             if(carrito.length === 0) {
-                cartContainer.innerHTML = '<div class="empty-message">Tu carrito está vacío. ¡Añade algunas prendas!</div>';
+                cartContainer.innerHTML = '<div class="empty-message">Tu carrito está vacío. ¡Explora el catálogo de KG!</div>';
                 document.getElementById('summary-subtotal').innerText = 'S/. 0.00';
                 document.getElementById('summary-total').innerText = 'S/. 0.00';
                 return;
@@ -732,7 +886,7 @@
                 itemRow.innerHTML = `
                     <div class="cart-item-details">
                         <h4>${item.name}</h4>
-                        <p>S/. ${item.price.toFixed(2)} <span style="color:gray; font-size:0.85rem;">(${item.gender})</span></p>
+                        <p>S/. ${item.price.toFixed(2)} <span style="color:gray; font-size:0.85rem;">(${item.gender === 'hombre' ? 'Varón' : 'Dama'})</span></p>
                     </div>
                     <button class="btn-remove" onclick="removeFromCart(${index})">
                         <i class="fa-solid fa-trash-can"></i>
@@ -751,17 +905,17 @@
                 return;
             }
             const metodo = document.getElementById('payment-method').value;
-            alert(`¡Pedido Procesado!\nMétodo de pago: ${metodo.toUpperCase()}\n¡Gracias por tu preferencia!`);
+            alert(`¡Pedido Procesado en KG!\nMétodo de pago: ${metodo.toUpperCase()}\n¡Gracias por tu preferencia!`);
             carrito = [];
             updateCartUI();
-            switchView('hombre');
+            switchView('inicio');
         }
 
         /* --- LOGIN ADMIN SIMULADO (image_76bce6.png) --- */
         function handleLogin(e) {
             e.preventDefault();
             const u = document.getElementById('login-user').value;
-            alert(`Acceso correcto. Bienvenido al panel ${u}.`);
+            alert(`Acceso correcto. Bienvenido al panel de KG, ${u}.`);
             switchView('admin');
             renderAdminTable();
             document.getElementById('login-form').reset();
@@ -804,11 +958,11 @@
             document.getElementById('admin-product-form').reset();
             renderAdminTable();
             renderStore();
-            alert("Producto guardado e integrado al catálogo.");
+            alert("Producto guardado e integrado al catálogo de KG.");
         }
 
         function deleteProduct(id) {
-            if(confirm("¿Eliminar este producto permanentemente?")) {
+            if(confirm("¿Eliminar este producto permanentemente de la tienda?")) {
                 productos = productos.filter(p => p.id !== id);
                 renderAdminTable();
                 renderStore();
@@ -822,3 +976,5 @@
     </script>
 </body>
 </html>
+
+```
