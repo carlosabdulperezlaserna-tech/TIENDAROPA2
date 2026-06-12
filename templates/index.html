@@ -1,372 +1,840 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fashion Style</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Ropa & Panel Admin</title>
+    <!-- Iconos de FontAwesome para replicar las imágenes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- ESTILOS GLOBALES (Basados en image_76bce6.png e image_76b9f9.png) --- */
+        :root {
+            --bg-principal: #121212;
+            --bg-tarjeta: #1e1e1e;
+            --bg-inputs: #2a2a2a;
+            --naranja-accento: #e67e22;
+            --naranja-hover: #cf6d1f;
+            --texto-blanco: #ffffff;
+            --texto-gris: #a0a0a0;
+            --borde-gris: #333333;
+        }
 
-<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-blanco);
+            line-height: 1.6;
+        }
 
-body{
-    background:#f5f5f5;
-}
+        /* --- NAVEGACIÓN --- */
+        header {
+            background-color: var(--bg-tarjeta);
+            border-bottom: 2px solid var(--borde-gris);
+            sticky: top;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-/* MENÚ */
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
 
-.navbar{
-    background:white;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 50px;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--naranja-accento);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-.logo{
-    font-size:28px;
-    font-weight:bold;
-}
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
 
-.navbar ul{
-    display:flex;
-    list-style:none;
-    gap:25px;
-}
+        .nav-menu a {
+            color: var(--texto-blanco);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
 
-.navbar a{
-    text-decoration:none;
-    color:black;
-    font-weight:bold;
-}
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--naranja-accento);
+        }
 
-/* BANNER */
+        .cart-icon-container {
+            position: relative;
+            cursor: pointer;
+        }
 
-.hero{
-    height:500px;
-    background:url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80');
-    background-size:cover;
-    background-position:center;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    color:white;
-    text-align:center;
-}
+        .cart-icon-container i {
+            font-size: 1.4rem;
+            color: var(--texto-blanco);
+        }
 
-.hero h1{
-    font-size:60px;
-}
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--naranja-accento);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
 
-.hero p{
-    font-size:24px;
-    margin:15px 0;
-}
+        /* --- CONTENEDOR PRINCIPAL VISTAS --- */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
 
-.hero button{
-    background:black;
-    color:white;
-    border:none;
-    padding:15px 30px;
-    font-size:18px;
-    border-radius:5px;
-    cursor:pointer;
-}
+        .view-section {
+            display: none;
+        }
 
-/* PRODUCTOS */
+        .view-section.active {
+            display: block;
+        }
 
-.titulo{
-    text-align:center;
-    margin:40px 0;
-}
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
 
-.productos{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:25px;
-    padding:20px;
-}
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--naranja-accento);
+        }
 
-.card{
-    width:280px;
-    background:white;
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow:0 0 15px rgba(0,0,0,.1);
-    transition:.3s;
-}
+        /* --- CUADRÍCULA DE PRODUCTOS --- */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
 
-.card:hover{
-    transform:translateY(-5px);
-}
+        .product-card {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde-gris);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
 
-.card img{
-    width:100%;
-    height:350px;
-    object-fit:cover;
-}
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--naranja-accento);
+        }
 
-.info{
-    padding:15px;
-    text-align:center;
-}
+        .product-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background-color: #2e2e2e;
+        }
 
-.precio{
-    color:#d10000;
-    font-size:22px;
-    margin:10px 0;
-}
+        .product-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
 
-.btn{
-    background:black;
-    color:white;
-    border:none;
-    padding:10px 20px;
-    cursor:pointer;
-    border-radius:5px;
-}
+        .product-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
 
-/* CARRITO */
+        .product-price {
+            font-size: 1.2rem;
+            color: var(--naranja-accento);
+            font-weight: bold;
+            margin-top: auto;
+            margin-bottom: 1rem;
+        }
 
-#carrito{
-    position:fixed;
-    right:20px;
-    top:100px;
-    width:280px;
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    box-shadow:0 0 15px rgba(0,0,0,.2);
-}
+        .btn-add-cart {
+            background-color: var(--naranja-accento);
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
 
-#carrito h2{
-    margin-bottom:10px;
-}
+        .btn-add-cart:hover {
+            background-color: var(--naranja-hover);
+        }
 
-#lista-carrito{
-    margin-left:20px;
-}
+        /* --- DISEÑO DE FORMULARIO LOGIN (Réplica de image_76bce6.png) --- */
+        .login-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60px;
+            padding: 2rem 0;
+        }
 
-.total{
-    margin-top:10px;
-    font-weight:bold;
-}
+        .login-card {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde-gris);
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
 
-.vaciar{
-    width:100%;
-    margin-top:10px;
-    background:red;
-    color:white;
-    border:none;
-    padding:10px;
-    border-radius:5px;
-    cursor:pointer;
-}
+        .login-header {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--naranja-accento);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-/* ADMIN */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
 
-.admin{
-    background:white;
-    margin:40px;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 0 15px rgba(0,0,0,.1);
-}
+        .form-group label {
+            display: block;
+            color: var(--texto-blanco);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
 
-footer{
-    background:black;
-    color:white;
-    text-align:center;
-    padding:20px;
-    margin-top:40px;
-}
+        .form-group input, .form-group select {
+            width: 100%;
+            background-color: var(--bg-inputs);
+            border: 1px solid var(--borde-gris);
+            color: var(--texto-blanco);
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
 
-</style>
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--naranja-accento);
+        }
+
+        .btn-submit {
+            background-color: var(--naranja-accento);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: auto;
+            display: inline-block;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--naranja-hover);
+        }
+
+        .login-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: var(--texto-gris);
+            font-size: 0.95rem;
+        }
+
+        .login-footer a {
+            color: var(--naranja-accento);
+            text-decoration: none;
+        }
+
+        /* --- INTERFAZ CARRITO --- */
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .cart-layout { grid-template-columns: 1fr; }
+        }
+
+        .cart-items-list {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde-gris);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--borde-gris);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-details h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-details p {
+            color: var(--naranja-accento);
+            font-weight: bold;
+        }
+
+        .btn-remove {
+            background: none;
+            border: none;
+            color: #ff4d4d;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .cart-summary {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde-gris);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .summary-total {
+            border-top: 2px solid var(--borde-gris);
+            padding-top: 1rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--naranja-accento);
+        }
+
+        /* --- PANEL DE ADMINISTRACIÓN --- */
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .admin-layout { grid-template-columns: 1fr; }
+        }
+
+        .admin-box {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde-gris);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table th, table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--borde-gris);
+        }
+
+        table th {
+            color: var(--naranja-accento);
+            background-color: rgba(230, 126, 34, 0.1);
+        }
+
+        /* --- SECCIÓN CONTACTO (Réplica exacta de image_76b9f9.png) --- */
+        .contacto-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .contacto-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(280px, 400px));
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+        }
+
+        @media (max-width: 650px) {
+            .contacto-grid { grid-template-columns: 1fr; }
+        }
+
+        .contacto-card {
+            background-color: var(--bg-tarjeta);
+            border-left: 4px solid var(--naranja-accento);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #e0e0e0;
+            text-align: left;
+            transition: background 0.3s;
+        }
+
+        .contacto-card i {
+            font-size: 1.3rem;
+        }
+
+        /* Colores específicos de los iconos de la imagen */
+        .contacto-card .fa-map-pin { color: #ec407a; } /* Rosa */
+        .contacto-card .fa-phone { color: #ec407a; }   /* Rosa */
+        .contacto-card .fa-clock { color: #b0bec5; }   /* Gris claro */
+
+        .contacto-card.link-maps {
+            cursor: pointer;
+        }
+        .contacto-card.link-maps span {
+            color: var(--naranja-accento);
+            font-weight: bold;
+        }
+        .contacto-card.link-maps:hover {
+            background-color: #252525;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: var(--texto-gris);
+            padding: 2rem;
+            font-style: italic;
+        }
+    </style>
 </head>
-
 <body>
 
-<nav class="navbar">
-    <div class="logo">FASHION STYLE</div>
-
-    <ul>
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Hombre</a></li>
-        <li><a href="#">Mujer</a></li>
-        <li><a href="#">Ofertas</a></li>
-        <li><a href="#">Contacto</a></li>
-    </ul>
-</nav>
-
-<section class="hero">
-    <h1>Nueva Colección 2026</h1>
-    <p>Moda para cada estilo</p>
-    <button>Comprar Ahora</button>
-</section>
-
-<h2 class="titulo">Productos Destacados</h2>
-
-<section class="productos">
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80">
-        <div class="info">
-            <h3>Polo Casual</h3>
-            <p class="precio">S/ 59.90</p>
-            <button class="btn" onclick="agregarCarrito('Polo Casual',59.90)">
-                Agregar al Carrito
-            </button>
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">ModaExpress</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a onclick="switchView('hombre')" id="nav-hombre" class="active">Hombres</a></li>
+                    <li><a onclick="switchView('mujer')" id="nav-mujer">Mujeres</a></li>
+                    <li><a onclick="switchView('contacto')" id="nav-contacto">Contacto</a></li>
+                    <li><a onclick="switchView('login')" id="nav-login"><i class="fa-solid fa-user-gear"></i> Admin</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon-container" onclick="switchView('carrito')">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
         </div>
+    </header>
+
+    <div class="container">
+
+        <!-- VISTA: HOMBRE -->
+        <section id="view-hombre" class="view-section active">
+            <h2 class="section-title">Colección Varones</h2>
+            <div class="products-grid" id="grid-hombre">
+                <!-- Se inyecta dinámicamente con JS -->
+            </div>
+        </section>
+
+        <!-- VISTA: MUJER -->
+        <section id="view-mujer" class="view-section">
+            <h2 class="section-title">Colección Damas</h2>
+            <div class="products-grid" id="grid-mujer">
+                <!-- Se inyecta dinámicamente con JS -->
+            </div>
+        </section>
+
+        <!-- VISTA: CARRITO DE COMPRAS -->
+        <section id="view-carrito" class="view-section">
+            <h2 class="section-title">Tu Carrito de Compras</h2>
+            <div class="cart-layout">
+                <div class="cart-items-list" id="cart-items-container">
+                    <!-- Elementos agregados -->
+                </div>
+                <div class="cart-summary">
+                    <h3>Resumen del Pedido</h3>
+                    <br>
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="summary-subtotal">S/. 0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Envío (Lima):</span>
+                        <span style="color: #2ecc71;">Gratis</span>
+                    </div>
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label for="payment-method">Método de Pago:</label>
+                        <select id="payment-method">
+                            <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                            <option value="yape">Yape / Plin</option>
+                            <option value="efectivo">Pago contra entrega (Efectivo)</option>
+                        </select>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Total:</span>
+                        <span id="summary-total">S/. 0.00</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="checkout()" style="border-radius: 6px; padding: 1rem;">Procesar Pedido</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA: INICIAR SESIÓN (Réplica image_76bce6.png) -->
+        <section id="view-login" class="view-section">
+            <div class="login-wrapper">
+                <div class="login-card">
+                    <div class="login-header">
+                        <i class="fa-solid fa-lock" style="color: #ffb74d;"></i> Iniciar Sesión
+                    </div>
+                    <form id="login-form" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label>Usuario</label>
+                            <input type="text" id="login-user" placeholder="Tu usuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            <input type="password" id="login-pass" placeholder="Tu contraseña" required>
+                        </div>
+                        <button type="submit" class="btn-submit" style="width: 100%; margin-top: 0.5rem;">Entrar</button>
+                    </form>
+                    <div class="login-footer">
+                        ¿No tienes cuenta? <a href="#">Regístrate aquí</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA: PANEL DE ADMINISTRACIÓN -->
+        <section id="view-admin" class="view-section">
+            <h2 class="section-title">Panel de Control / Inventario</h2>
+            <div class="admin-layout">
+                <!-- Formulario Agregar -->
+                <div class="admin-box">
+                    <h3>Añadir Nuevo Producto</h3>
+                    <br>
+                    <form id="admin-product-form" onsubmit="addProduct(event)">
+                        <div class="form-group">
+                            <label>Nombre del Producto</label>
+                            <input type="text" id="admin-name" placeholder="Ej: Casaca de Cuero" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Precio (S/.)</label>
+                            <input type="number" step="0.01" id="admin-price" placeholder="Ej: 149.90" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Categoría / Género</label>
+                            <select id="admin-gender">
+                                <option value="hombre">Hombre</option>
+                                <option value="mujer">Mujer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>URL de la Imagen</label>
+                            <input type="text" id="admin-img" placeholder="https://ejemplo.com/foto.jpg">
+                            <small style="color: var(--texto-gris); font-size: 0.8rem;">(Si se deja en blanco, usará una por defecto)</small>
+                        </div>
+                        <button type="submit" class="btn-submit" style="width: 100%;">Guardar Producto</button>
+                    </form>
+                </div>
+                <!-- Tabla Listado -->
+                <div class="admin-box">
+                    <h3>Productos en Base de Datos</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Categoría</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body">
+                                <!-- Filas dinámicas -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA: CONTACTO (Réplica exacta de image_76b9f9.png) -->
+        <section id="view-contacto" class="view-section">
+            <div class="contacto-section">
+                <h2 class="section-title" style="font-size: 2.2rem;">Contacto</h2>
+                
+                <div class="contacto-grid">
+                    <div class="contacto-card">
+                        <i class="fa-solid fa-map-pin"></i>
+                        <span>Lima - Perú</span>
+                    </div>
+                    
+                    <div class="contacto-card">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>993 331 7571</span>
+                    </div>
+                    
+                    <div class="contacto-card">
+                        <i class="fa-solid fa-clock"></i>
+                        <span>Lunes a sábado: 7:00 am - 6:00 pm</span>
+                    </div>
+                    
+                    <div class="contacto-card link-maps">
+                        <i class="fa-solid fa-map-pin"></i>
+                        <span>Ver ubicación en Google Maps</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=800&q=80">
-        <div class="info">
-            <h3>Jeans Moderno</h3>
-            <p class="precio">S/ 89.90</p>
-            <button class="btn" onclick="agregarCarrito('Jeans Moderno',89.90)">
-                Agregar al Carrito
-            </button>
-        </div>
-    </div>
+    <script>
+        /* --- BASE DE DATOS LOCAL DE PRODUCTOS (MOCK) --- */
+        let productos = [
+            { id: 1, name: "Chaqueta Denim Premium", price: 189.90, gender: "hombre", img: "https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=500" },
+            { id: 2, name: "Polera Oversize Urbana", price: 120.00, gender: "hombre", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500" },
+            { id: 3, name: "Camisa Slim Fit Lino", price: 95.00, gender: "hombre", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500" },
+            { id: 4, name: "Vestido Floral de Verano", price: 159.90, gender: "mujer", img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500" },
+            { id: 5, name: "Blusa Elegante Satinada", price: 89.00, gender: "mujer", img: "https://images.unsplash.com/photo-1548624149-f1bc346f353a?w=500" },
+            { id: 6, name: "Jean High Waist Azul", price: 135.00, gender: "mujer", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" }
+        ];
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80">
-        <div class="info">
-            <h3>Vestido Elegante</h3>
-            <p class="precio">S/ 129.90</p>
-            <button class="btn" onclick="agregarCarrito('Vestido Elegante',129.90)">
-                Agregar al Carrito
-            </button>
-        </div>
-    </div>
+        let carrito = [];
 
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80">
-        <div class="info">
-            <h3>Chaqueta Premium</h3>
-            <p class="precio">S/ 149.90</p>
-            <button class="btn" onclick="agregarCarrito('Chaqueta Premium',149.90)">
-                Agregar al Carrito
-            </button>
-        </div>
-    </div>
+        /* --- CONTROLADOR DE VISTAS (SPA) --- */
+        function switchView(viewName) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            // Remover estado activo de links de navegación
+            document.querySelectorAll('.nav-menu a').forEach(link => link.classList.remove('active'));
+            
+            // Activar sección solicitada
+            const targetSection = document.getElementById(`view-${viewName}`);
+            if(targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Iluminar enlace del menú correspondiente
+            const targetLink = document.getElementById(`nav-${viewName}`);
+            if(targetLink) {
+                targetLink.classList.add('active');
+            }
+        }
 
-</section>
+        /* --- RENDERIZADO DE CATÁLOGO --- */
+        function renderStore() {
+            const gridHombre = document.getElementById('grid-hombre');
+            const gridMujer = document.getElementById('grid-mujer');
+            
+            gridHombre.innerHTML = '';
+            gridMujer.innerHTML = '';
 
-<div id="carrito">
-    <h2>🛒 Carrito</h2>
+            productos.forEach(prod => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${prod.img || 'https://via.placeholder.com/250'}" alt="${prod.name}" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-name">${prod.name}</h3>
+                        <div class="product-price">S/. ${prod.price.toFixed(2)}</div>
+                        <button class="btn-add-cart" onclick="addToCart(${prod.id})">Agregar al carrito</button>
+                    </div>
+                `;
 
-    <ul id="lista-carrito"></ul>
+                if(prod.gender === 'hombre') {
+                    gridHombre.appendChild(card);
+                } else {
+                    gridMujer.appendChild(card);
+                }
+            });
+        }
 
-    <p class="total">
-        Total: S/ <span id="total">0.00</span>
-    </p>
+        /* --- LOGICA DEL CARRITO --- */
+        function addToCart(id) {
+            const prod = productos.find(p => p.id === id);
+            if(prod) {
+                carrito.push(prod);
+                updateCartUI();
+            }
+        }
 
-    <button class="vaciar" onclick="vaciarCarrito()">
-        Vaciar Carrito
-    </button>
-</div>
+        function removeFromCart(index) {
+            carrito.splice(index, 1);
+            updateCartUI();
+        }
 
-<div class="admin">
-    <h2>👨‍💼 Panel Administrador</h2>
+        function updateCartUI() {
+            // Actualizar contador superior
+            document.getElementById('cart-count').innerText = carrito.length;
 
-    <p>Productos agregados:</p>
+            const cartContainer = document.getElementById('cart-items-container');
+            cartContainer.innerHTML = '';
 
-    <ul id="admin-lista"></ul>
+            if(carrito.length === 0) {
+                cartContainer.innerHTML = '<div class="empty-message">Tu carrito está vacío. ¡Añade algunas prendas!</div>';
+                document.getElementById('summary-subtotal').innerText = 'S/. 0.00';
+                document.getElementById('summary-total').innerText = 'S/. 0.00';
+                return;
+            }
 
-    <br>
+            let subtotal = 0;
+            carrito.forEach((item, index) => {
+                subtotal += item.price;
+                const itemRow = document.createElement('div');
+                itemRow.className = 'cart-item';
+                itemRow.innerHTML = `
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p>S/. ${item.price.toFixed(2)} <span style="color:gray; font-size:0.85rem;">(${item.gender})</span></p>
+                    </div>
+                    <button class="btn-remove" onclick="removeFromCart(${index})">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                cartContainer.appendChild(itemRow);
+            });
 
-    <p>
-        Cantidad total:
-        <strong id="cantidad">0</strong>
-    </p>
-</div>
+            document.getElementById('summary-subtotal').innerText = `S/. ${subtotal.toFixed(2)}`;
+            document.getElementById('summary-total').innerText = `S/. ${subtotal.toFixed(2)}`;
+        }
 
-<footer>
-    <p>© 2026 Fashion Style - Todos los derechos reservados</p>
-</footer>
+        function checkout() {
+            if(carrito.length === 0) {
+                alert("El carrito está vacío.");
+                return;
+            }
+            const metodo = document.getElementById('payment-method').value;
+            alert(`¡Pedido Procesado Exitosamente!\nMétodo de pago seleccionado: ${metodo.toUpperCase()}\nGracias por comprar en ModaExpress.`);
+            carrito = [];
+            updateCartUI();
+            switchView('hombre');
+        }
 
-<script>
+        /* --- MÓDULO LOGIN ADMIN (Simulación image_76bce6.png) --- */
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('login-user').value;
+            const p = document.getElementById('login-pass').value;
 
-let carrito = [];
-let total = 0;
+            // Validación simple para efectos prácticos de prueba
+            if(u.trim().toLowerCase() === 'admin' || u.trim() !== '') {
+                alert(`Bienvenido, ${u}. Ingresando al panel administrativo.`);
+                switchView('admin');
+                renderAdminTable();
+                document.getElementById('login-form').reset();
+            } else {
+                alert("Credenciales incorrectas.");
+            }
+        }
 
-function agregarCarrito(nombre, precio){
+        /* --- CONTROLADOR PANEL ADMINISTRACIÓN --- */
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = '';
 
-    carrito.push({
-        nombre:nombre,
-        precio:precio
-    });
+            productos.forEach(prod => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>#${prod.id}</td>
+                    <td>${prod.name}</td>
+                    <td>S/. ${prod.price.toFixed(2)}</td>
+                    <td style="text-transform: capitalize;">${prod.gender}</td>
+                    <td>
+                        <button onclick="deleteProduct(${prod.id})" style="background:none; border:none; color:#ff4d4d; cursor:pointer;">
+                            <i class="fa-solid fa-trash"></i> Borrar
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
 
-    total += precio;
+        function addProduct(e) {
+            e.preventDefault();
+            const name = document.getElementById('admin-name').value;
+            const price = parseFloat(document.getElementById('admin-price').value);
+            const gender = document.getElementById('admin-gender').value;
+            let img = document.getElementById('admin-img').value;
 
-    actualizar();
-}
+            if(!img) {
+                img = "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500"; // Imagen genérica de ropa
+            }
 
-function actualizar(){
+            const newId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1;
 
-    let lista = document.getElementById("lista-carrito");
-    let admin = document.getElementById("admin-lista");
+            productos.push({ id: newId, name, price, gender, img });
+            
+            document.getElementById('admin-product-form').reset();
+            renderAdminTable();
+            renderStore();
+            alert("Producto añadido exitosamente a la tienda.");
+        }
 
-    lista.innerHTML = "";
-    admin.innerHTML = "";
+        function deleteProduct(id) {
+            if(confirm("¿Estás seguro de eliminar este producto?")) {
+                productos = productos.filter(p => p.id !== id);
+                renderAdminTable();
+                renderStore();
+            }
+        }
 
-    carrito.forEach((producto,index)=>{
-
-        let item = document.createElement("li");
-        item.textContent =
-        producto.nombre +
-        " - S/ " +
-        producto.precio.toFixed(2);
-
-        lista.appendChild(item);
-
-        let adminItem = document.createElement("li");
-        adminItem.textContent =
-        (index+1) +
-        ". " +
-        producto.nombre +
-        " - S/ " +
-        producto.precio.toFixed(2);
-
-        admin.appendChild(adminItem);
-
-    });
-
-    document.getElementById("total").textContent =
-    total.toFixed(2);
-
-    document.getElementById("cantidad").textContent =
-    carrito.length;
-}
-
-function vaciarCarrito(){
-
-    carrito = [];
-    total = 0;
-
-    actualizar();
-}
-
-</script>
-
+        /* --- INICIALIZACIÓN DE LA APP --- */
+        window.onload = function() {
+            renderStore();
+            updateCartUI();
+        };
+    </script>
 </body>
 </html>
-
-    actualizar();
-
-}
-
-</script>
