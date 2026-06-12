@@ -138,14 +138,13 @@
 
         /* --- SECCIÓN INICIO --- */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200') center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.pexels.com/photos/1020370/pexels-photo-1020370.jpeg?auto=compress&cs=tinysrgb&w=1200') center/cover;
             height: 350px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            border-radius: 0px;
             margin-bottom: 3rem;
             padding: 2rem;
             border: 1px solid var(--borde-gris);
@@ -249,7 +248,7 @@
 
         .product-img {
             width: 100%;
-            height: 320px;
+            height: 340px;
             object-fit: cover;
             transition: transform 0.3s ease;
         }
@@ -278,6 +277,11 @@
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
             font-weight: 500;
+            min-height: 2.4rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .product-price {
@@ -402,7 +406,6 @@
             border: 1px solid var(--borde-gris);
             color: var(--texto-blanco);
             padding: 0.8rem 1rem;
-            border-radius: 0px;
             font-size: 1rem;
         }
 
@@ -552,14 +555,14 @@
             </div>
             <div class="categories-banners">
                 <div class="banner-card" onclick="switchView('hombre')">
-                    <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=600" alt="Hombres">
+                    <img src="https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Hombres">
                     <div class="banner-text">
                         <h3>Hombres</h3>
                         <span>Ver catálogo <i class="fa-solid fa-arrow-right"></i></span>
                     </div>
                 </div>
                 <div class="banner-card" onclick="switchView('mujer')">
-                    <img src="https://images.unsplash.com/photo-1479064555552-3ef4979f8908?w=600" alt="Mujeres">
+                    <img src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mujeres">
                     <div class="banner-text">
                         <h3>Mujeres</h3>
                         <span>Ver catálogo <i class="fa-solid fa-arrow-right"></i></span>
@@ -693,27 +696,27 @@
     </div>
 
     <script>
-        /* --- BASE DE DATOS LOCAL CORREGIDA Y CLASIFICADA --- */
+        /* --- BASE DE DATOS LOCAL CORREGIDA CON JUEGOS DE IMÁGENES ULTRA ESTABLES --- */
         let productos = [
-            // SECCIÓN HOMBRES: Totalmente coloridos y funcionales
-            { id: 1, name: "Chaqueta Cuero Marrón Camel", price: 249.90, gender: "hombre", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" },
-            { id: 2, name: "Polera Urbana Verde Bosque", price: 125.00, gender: "hombre", img: "https://images.unsplash.com/photo-1519983814884-466035887217?w=500" },
-            { id: 3, name: "Camisa Casual Terracota", price: 95.00, gender: "hombre", img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500" },
-            { id: 4, name: "Chaqueta Denim Azul Clásico", price: 189.90, gender: "hombre", img: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=500" },
-            { id: 5, name: "Polera Hoodie Amarillo Vibrante", price: 119.00, gender: "hombre", img: "https://images.unsplash.com/photo-1564557173450-b5596e7104b5?w=500" },
-            { id: 6, name: "Casaca Impermeable Naranja", price: 169.90, gender: "hombre", img: "https://images.unsplash.com/photo-1548123306-a7c9ce61a936?w=500" },
-            { id: 7, name: "Polera Casual Rojo Escarlata", price: 99.90, gender: "hombre", img: "https://images.unsplash.com/photo-1510227272981-87123e259b17?w=500" },
-            { id: 8, name: "Gorra Deportiva Azul Royal", price: 49.90, gender: "hombre", img: "https://images.unsplash.com/photo-1534215754734-18e55d13ce35?w=500" },
+            // SECCIÓN HOMBRES: Filtros estrictos de ropa masculina colorida
+            { id: 1, name: "Chaqueta Cuero Marrón Camel", price: 249.90, gender: "hombre", img: "https://loremflickr.com/500/680/jacket,leather,man/all" },
+            { id: 2, name: "Polera Urbana Verde Bosque", price: 125.00, gender: "hombre", img: "https://images.pexels.com/photos/5413158/pexels-photo-5413158.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { id: 3, name: "Camisa Casual Terracota", price: 95.00, gender: "hombre", img: "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { id: 4, name: "Chaqueta Denim Azul Clásico", price: 189.90, gender: "hombre", img: "https://images.pexels.com/photos/10002131/pexels-photo-10002131.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { id: 5, name: "Polera Hoodie Amarillo Vibrante", price: 119.00, gender: "hombre", img: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { id: 6, name: "Casaca Impermeable Naranja", price: 169.90, gender: "hombre", img: "https://loremflickr.com/500/680/orange,jacket,man/all" },
+            { id: 7, name: "Polera Casual Rojo Escarlata", price: 99.90, gender: "hombre", img: "https://images.pexels.com/photos/4066063/pexels-photo-4066063.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { id: 8, name: "Gorra Deportiva Azul Royal", price: 49.90, gender: "hombre", img: "https://loremflickr.com/500/680/cap,blue/all" },
             
-            // SECCIÓN MUJERES: Filtro estricto y fotos coloridas operativas
-            { id: 9, name: "Vestido de Gala Rojo Pasión", price: 189.90, gender: "mujer", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500" },
-            { id: 10, name: "Blusa Satinada Verde Esmeralda", price: 89.00, gender: "mujer", img: "https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?w=500" },
-            { id: 11, name: "Casaca Acolchada Rosa Pastel", price: 199.90, gender: "mujer", img: "https://images.unsplash.com/photo-1544761929-ed2300b29a67?w=500" },
-            { id: 12, name: "Enterizo Casual Amarillo Sol", price: 145.00, gender: "mujer", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" },
-            { id: 13, name: "Falda Plisada Azul Celeste", price: 95.00, gender: "mujer", img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500" },
-            { id: 14, name: "Chaqueta Cortavientos Amarilla", price: 175.00, gender: "mujer", img: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=500" },
-            { id: 15, name: "Suéter Tejido Lila Lavanda", price: 110.00, gender: "mujer", img: "https://images.unsplash.com/photo-1611751421002-fc2994c9db47?w=500" },
-            { id: 16, name: "Blusa Manga Larga Carmín", price: 79.90, gender: "mujer", img: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500" }
+            // SECCIÓN MUJERES: Filtros estrictos de ropa femenina colorida
+            { id: 9, name: "Vestido de Gala Rojo Pasión", price: 189.90, gender: "mujer", img: "https://images.pexels.com/photos/985635/pexels-photo-985635.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { id: 10, name: "Blusa Satinada Verde Esmeralda", price: 89.00, gender: "mujer", img: "https://loremflickr.com/500/680/blouse,green,woman/all" },
+            { id: 11, name: "Casaca Acolchada Rosa Pastel", price: 199.90, gender: "mujer", img: "https://loremflickr.com/500/680/pink,coat,woman/all" },
+            { id: 12, name: "Enterizo Casual Amarillo Sol", price: 145.00, gender: "mujer", img: "https://images.pexels.com/photos/2811088/pexels-photo-2811088.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { id: 13, name: "Falta Plisada Azul Celeste", price: 95.00, gender: "mujer", img: "https://loremflickr.com/500/680/skirt,blue,woman/all" },
+            { id: 14, name: "Chaqueta Cortavientos Amarilla", price: 175.00, gender: "mujer", img: "https://images.pexels.com/photos/1018911/pexels-photo-1018911.jpeg?auto=compress&cs=tinysrgb&w=500" },
+            { id: 15, name: "Suéter Tejido Lila Lavanda", price: 110.00, gender: "mujer", img: "https://loremflickr.com/500/680/purple,sweater,woman/all" },
+            { id: 16, name: "Blusa Manga Larga Carmín", price: 79.90, gender: "mujer", img: "https://images.pexels.com/photos/7622432/pexels-photo-7622432.jpeg?auto=compress&cs=tinysrgb&w=500" }
         ];
 
         let carrito = [];
@@ -754,7 +757,7 @@
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
-                <img src="${prod.img}" alt="${prod.name}" class="product-img" loading="lazy">
+                <img src="${prod.img}" alt="${prod.name}" class="product-img" onerror="this.src='https://loremflickr.com/500/680/clothes?random='+Math.random()">
                 <div class="product-info">
                     ${showBadge ? `<div class="product-badge">${prod.gender === 'hombre' ? 'Varón' : 'Dama'}</div>` : ''}
                     <h3 class="product-name">${prod.name}</h3>
@@ -837,7 +840,7 @@
             const name = document.getElementById('admin-name').value;
             const price = parseFloat(document.getElementById('admin-price').value);
             const gender = document.getElementById('admin-gender').value;
-            const img = document.getElementById('admin-img').value || "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500";
+            const img = document.getElementById('admin-img').value || "https://loremflickr.com/500/680/fashion";
             const newId = productos.length + 1;
             productos.push({ id: newId, name, price, gender, img });
             renderAdminTable(); renderStore();
