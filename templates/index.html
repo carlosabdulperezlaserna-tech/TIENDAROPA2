@@ -138,7 +138,7 @@
 
         /* --- SECCIÓN INICIO --- */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200') center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200') center/cover;
             height: 350px;
             display: flex;
             flex-direction: column;
@@ -188,17 +188,18 @@
             border: 1px solid var(--borde-gris);
         }
 
+        /* ELIMINADO EL FILTRO GRAYSCALE: Las imágenes de los banners ahora se ven a todo color */
         .banner-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s, filter 0.3s;
-            filter: brightness(0.4) grayscale(100%);
+            filter: brightness(0.6); 
         }
 
         .banner-card:hover img {
             transform: scale(1.03);
-            filter: brightness(0.6) grayscale(100%);
+            filter: brightness(0.8);
         }
 
         .banner-text {
@@ -213,16 +214,18 @@
             text-transform: uppercase;
             margin-bottom: 0.5rem;
             letter-spacing: 1px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
         }
 
         .banner-text span {
-            color: var(--texto-gris);
+            color: #ffffff;
             font-weight: bold;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-size: 0.9rem;
             text-transform: uppercase;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
         }
 
         .banner-card:hover .banner-text span {
@@ -249,16 +252,16 @@
             border-color: var(--blanco-accento);
         }
 
+        /* ELIMINADO TOTALMENTE EL FILTRO GRAYSCALE: Ropa con sus colores reales y llamativos */
         .product-img {
             width: 100%;
             height: 280px;
             object-fit: cover;
-            filter: brightness(0.8) grayscale(100%);
-            transition: filter 0.3s;
+            transition: transform 0.3s ease;
         }
 
         .product-card:hover .product-img {
-            filter: brightness(1) grayscale(0%);
+            transform: scale(1.02);
         }
 
         .product-info {
@@ -487,7 +490,7 @@
             z-index: 10;
         }
 
-        /* --- SECCIÓN CONTACTO (Inspirado en image_6bd077.png) --- */
+        /* --- SECCIÓN CONTACTO (image_6bd077.png) --- */
         .contacto-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -563,12 +566,11 @@
             color: var(--blanco-accento);
         }
 
-        /* Contenedor del Mapa (FILTRO ELIMINADO PARA VERLO COLORIDO) */
+        /* Contenedor del Mapa Original a Color */
         .contacto-map-side {
             width: 100%;
             height: 380px;
             border: 1px solid var(--borde-gris);
-            /* Se quitó el filter grayscale para que sea a todo color */
         }
 
         .contacto-map-side iframe {
@@ -618,14 +620,14 @@
 
             <div class="categories-banners">
                 <div class="banner-card" onclick="switchView('hombre')">
-                    <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=600" alt="Hombres">
+                    <img src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=600" alt="Hombres">
                     <div class="banner-text">
                         <h3>Hombres</h3>
                         <span>Ver catálogo <i class="fa-solid fa-arrow-right"></i></span>
                     </div>
                 </div>
                 <div class="banner-card" onclick="switchView('mujer')">
-                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600" alt="Mujeres">
+                    <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=600" alt="Mujeres">
                     <div class="banner-text">
                         <h3>Mujeres</h3>
                         <span>Ver catálogo <i class="fa-solid fa-arrow-right"></i></span>
@@ -757,13 +759,11 @@
             </div>
         </section>
 
-        <!-- VISTA: CONTACTO (Mapa Colorido Integrado) -->
+        <!-- VISTA: CONTACTO -->
         <section id="view-contacto" class="view-section">
             <h2 class="section-title">Encuéntranos</h2>
             
             <div class="contacto-wrapper">
-                
-                <!-- Bloque izquierdo: Información Física de la Tienda -->
                 <div class="contacto-info-side">
                     <h3>KG Store - Tienda Física</h3>
                     
@@ -787,7 +787,6 @@
                         <span>contacto@kgstore.pe</span>
                     </div>
 
-                    <!-- Enlace directo que abre WhatsApp Web con mensaje personalizado -->
                     <a href="https://web.whatsapp.com/send?phone=51999999999&text=Hola%20KG%20Store,%20solicito%20informaci%C3%B3n%20sobre%20sus%20prendas." 
                        target="_blank" 
                        class="btn-whatsapp">
@@ -795,7 +794,6 @@
                     </a>
                 </div>
 
-                <!-- Bloque derecho: Mapa Original de Google Maps con Colores Vivos -->
                 <div class="contacto-map-side">
                     <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.1973685519895!2d-77.0336214!3d-12.105432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c8669e469573%3A0x6b24df4ef98e6c7c!2sAv.%20Arequipa%201234%2C%20Miraflores%2015074!5e0!3m2!1ses-419!2spe!4v1710000000000!5m2!1ses-419!2spe" 
@@ -804,28 +802,33 @@
                         referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
                 </div>
-
             </div>
         </section>
 
     </div>
 
     <script>
-        /* --- BASE DE DATOS LOCAL --- */
+        /* --- BASE DE DATOS LOCAL AMPLIADA CON IMÁGENES COLORIDAS --- */
         let productos = [
-            { id: 1, name: "Chaqueta Denim Premium", price: 189.90, gender: "hombre", img: "https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=500" },
-            { id: 2, name: "Polera Oversize Urbana", price: 120.00, gender: "hombre", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500" },
-            { id: 3, name: "Camisa Slim Fit Lino", price: 95.00, gender: "hombre", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500" },
-            { id: 4, name: "Casaca de Cuero Rocker", price: 249.90, gender: "hombre", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" },
-            { id: 5, name: "Pantalón Cargo Casual", price: 115.00, gender: "hombre", img: "https://images.unsplash.com/photo-1517423568366-8b83523034fd?w=500" },
-            { id: 6, name: "Polera Minimalist Crewneck", price: 99.90, gender: "hombre", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500" },
+            // ROPA PARA HOMBRES (COLORIDA)
+            { id: 1, name: "Chaqueta de Cuero Marrón Camel", price: 249.90, gender: "hombre", img: "https://images.unsplash.com/photo-1521223869279-37121f2e0543?w=500" },
+            { id: 2, name: "Polera Urbana Verde Bosque", price: 125.00, gender: "hombre", img: "https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?w=500" },
+            { id: 3, name: "Camisa de Lino Terracota Slim", price: 95.00, gender: "hombre", img: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=500" },
+            { id: 4, name: "Chaqueta Denim Azul Eléctrico", price: 189.90, gender: "hombre", img: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500" },
+            { id: 5, name: "Polera Hoodie Amarillo Mostaza", price: 119.00, gender: "hombre", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500" },
+            { id: 6, name: "Cortavientos Camuflado Naranja", price: 169.90, gender: "hombre", img: "https://images.unsplash.com/photo-1548883354-7622d03aca27?w=500" },
+            { id: 13, name: "Camiseta Tie-Dye Multicolor", price: 69.90, gender: "hombre", img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=500" },
+            { id: 14, name: "Gorra Deportiva Rojo Escarlata", price: 49.90, gender: "hombre", img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500" },
             
-            { id: 7, name: "Vestido Floral de Verano", price: 159.90, gender: "mujer", img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500" },
-            { id: 8, name: "Blusa Elegante Satinada", price: 89.00, gender: "mujer", img: "https://images.unsplash.com/photo-1548624149-f1bc346f353a?w=500" },
-            { id: 9, name: "Jean High Waist Azul", price: 135.00, gender: "mujer", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" },
-            { id: 10, name: "Chaqueta Cortaviento Pastel", price: 179.90, gender: "mujer", img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500" },
-            { id: 11, name: "Falda Midi Plisada", price: 95.00, gender: "mujer", img: "https://images.unsplash.com/photo-1583496661160-fb488653f5d4?w=500" },
-            { id: 12, name: "Top de Punto Confort", price: 65.00, gender: "mujer", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" }
+            // ROPA PARA MUJERES (COLORIDA)
+            { id: 7, name: "Vestido de Gala Rojo Pasión", price: 189.90, gender: "mujer", img: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500" },
+            { id: 8, name: "Blusa Satinada Verde Esmeralda", price: 89.00, gender: "mujer", img: "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=500" },
+            { id: 9, name: "Casaca Acolchada Rosa Pastel", price: 199.90, gender: "mujer", img: "https://images.unsplash.com/photo-1612436224342-031e847c29be?w=500" },
+            { id: 10, name: "Enterizo Casual Amarillo Sol", price: 145.00, gender: "mujer", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" },
+            { id: 11, name: "Falda Plisada Azul Celeste", price: 95.00, gender: "mujer", img: "https://images.unsplash.com/photo-1583496661160-fb488653f5d4?w=500" },
+            { id: 12, name: "Chaqueta Motera Naranja Vibrante", price: 220.00, gender: "mujer", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" },
+            { id: 15, name: "Suéter Tejido Violeta Lavanda", price: 110.00, gender: "mujer", img: "https://images.unsplash.com/photo-1614975058789-41316d0e2e9c?w=500" },
+            { id: 16, name: "Blusa Manga Larga Carmín", price: 79.90, gender: "mujer", img: "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=500" }
         ];
 
         let carrito = [];
