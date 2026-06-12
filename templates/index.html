@@ -87,21 +87,6 @@
             gap: 1.5rem;
         }
 
-        .phone-link {
-            color: var(--texto-gris);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: color 0.3s;
-        }
-
-        .phone-link:hover {
-            color: var(--blanco-accento);
-        }
-
         .cart-icon-container {
             position: relative;
             cursor: pointer;
@@ -336,10 +321,10 @@
             color: var(--blanco-accento);
         }
 
-        /* --- INTERFAZ CARRITO --- */
+        /* --- INTERFAZ CARRITO Y PASARELA DE PAGO --- */
         .cart-layout {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: 1.8fr 1.2fr;
             gap: 2rem;
             align-items: start;
         }
@@ -378,9 +363,92 @@
         .summary-total {
             border-top: 1px solid var(--borde-gris);
             padding-top: 1rem;
+            margin-bottom: 1.5rem;
             font-size: 1.3rem;
             font-weight: bold;
             color: var(--blanco-accento);
+        }
+
+        .payment-method-box {
+            border-top: 1px solid var(--borde-gris);
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .payment-method-box h4 {
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .payment-details {
+            margin-top: 1rem;
+            background-color: #0c0c0c;
+            padding: 1rem;
+            border: 1px solid var(--borde-gris);
+        }
+
+        .payment-details label {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+            color: var(--texto-gris);
+        }
+
+        .payment-details input {
+            width: 100%;
+            background-color: var(--bg-inputs);
+            border: 1px solid var(--borde-gris);
+            color: #fff;
+            padding: 0.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        /* --- MODAL DE NOTIFICACIÓN DE COMPRA --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-box {
+            background-color: var(--bg-tarjeta);
+            border: 2px solid var(--blanco-accento);
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 30px rgba(255,255,255,0.05);
+        }
+
+        .modal-box i {
+            font-size: 3.5rem;
+            color: var(--blanco-accento);
+            margin-bottom: 1rem;
+        }
+
+        .modal-box h3 {
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .modal-box p {
+            color: var(--texto-gris);
+            margin-bottom: 2rem;
+            font-size: 1rem;
         }
 
         /* --- PANEL ADMINISTRATIVO Y LOGIN --- */
@@ -577,7 +645,6 @@
                 </ul>
             </nav>
             <div class="nav-actions">
-                <a href="tel:+51987654321" class="phone-link"><i class="fa-solid fa-phone"></i> 987 654 321</a>
                 <div class="cart-icon-container" onclick="switchView('carrito')">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span class="cart-count" id="cart-count">0</span>
@@ -646,12 +713,51 @@
                         <span>Total:</span>
                         <span id="summary-total">S/. 0.00</span>
                     </div>
-                    <button class="btn-add-cart" onclick="checkout()" style="padding: 1rem;">Procesar Pedido</button>
+
+                    <!-- SISTEMA DINÁMICO DE PAGO -->
+                    <div class="payment-method-box" id="payment-box-section" style="display:none;">
+                        <h4>Selecciona Método de Pago</h4>
+                        <div class="form-group">
+                            <select id="payment-select" onchange="togglePaymentFields()">
+                                <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                                <option value="yape">Yape</option>
+                                <option value="plin">Plin</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Campos para Tarjeta -->
+                        <div id="fields-tarjeta" class="payment-details">
+                            <label>Número de Tarjeta</label>
+                            <input type="text" placeholder="xxxx xxxx xxxx xxxx" id="card-num">
+                            <label>Fecha de Exp.</label>
+                            <input type="text" placeholder="MM/AA" id="card-exp" style="width: 45%; display: inline-block; margin-right: 5%;">
+                            <div style="width: 45%; display: inline-block;">
+                                <label>CVV</label>
+                                <input type="text" placeholder="xxx" id="card-cvv">
+                            </div>
+                        </div>
+
+                        <!-- Campos para Yape -->
+                        <div id="fields-yape" class="payment-details" style="display:none;">
+                            <label>Número celular asociado a Yape</label>
+                            <input type="text" placeholder="987 654 321" id="yape-phone">
+                            <label>Código de aprobación Yape</label>
+                            <input type="text" placeholder="6 dígitos" id="yape-code">
+                        </div>
+
+                        <!-- Campos para Plin -->
+                        <div id="fields-plin" class="payment-details" style="display:none;">
+                            <label>Número celular asociado a Plin</label>
+                            <input type="text" placeholder="987 654 321" id="plin-phone">
+                        </div>
+                    </div>
+
+                    <button class="btn-add-cart" id="btn-checkout" onclick="checkout()" style="padding: 1rem; margin-top: 1rem;">Procesar Pedido</button>
                 </div>
             </div>
         </section>
 
-        <!-- LOGIN (AHORA ACCESIBLE DESDE INICIAR SESIÓN) -->
+        <!-- LOGIN -->
         <section id="view-login" class="view-section">
             <div class="login-wrapper">
                 <div class="login-card">
@@ -737,10 +843,19 @@
 
     </div>
 
+    <!-- MODAL BONITO DE COMPRA ÉXITOSA -->
+    <div class="modal-overlay" id="success-modal">
+        <div class="modal-box">
+            <i class="fa-solid fa-circle-check"></i>
+            <h3>¡Compra Completada!</h3>
+            <p>Tu orden ha sido procesada con éxito. Muchas gracias por confiar en el Streetwear de KG Store.</p>
+            <button class="btn-submit" onclick="closeModal()">Aceptar</button>
+        </div>
+    </div>
+
     <script>
-        /* --- BASE DE DATOS LOCAL CON IMÁGENES REALISTAS DE STREETWEAR --- */
+        /* --- BASE DE DATOS LOCAL --- */
         let productos = [
-            // SECCIÓN HOMBRES
             { id: 1, name: "Pantalón Baggy Denim 'Acid Black'", price: 169.00, gender: "hombre", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=500&q=80" },
             { id: 2, name: "Buso Baggy Jogger 'Heavy Grey'", price: 139.00, gender: "hombre", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80" },
             { id: 3, name: "Hoodie Oversized 'Matrix Black'", price: 179.00, gender: "hombre", img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=500&q=80" },
@@ -748,7 +863,6 @@
             { id: 5, name: "Pantalón Cargo Baggy 'Khaki Tech'", price: 175.00, gender: "hombre", img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=500&q=80" },
             { id: 6, name: "Polo Oversized 'Vintage Charcoal'", price: 95.00, gender: "hombre", img: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=500&q=80" },
             
-            // SECCIÓN MUJERES
             { id: 7, name: "Pantalón Baggy Wide Leg 'Classic Denim'", price: 169.00, gender: "mujer", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=500&q=80" },
             { id: 8, name: "Buso Baggy Jogger 'Earth Sand'", price: 139.00, gender: "mujer", img: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=500&q=80" },
             { id: 9, name: "Hoodie Oversized 'Muted Cocoa'", price: 179.00, gender: "mujer", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80" },
@@ -780,11 +894,9 @@
             gridHombre.innerHTML = '';
             gridMujer.innerHTML = '';
 
-            // Mix en Home
             productos.slice(0, 3).forEach(prod => gridInicio.appendChild(createProductCard(prod)));
             productos.slice(6, 9).forEach(prod => gridInicio.appendChild(createProductCard(prod)));
 
-            // Filtros por Categoría
             productos.forEach(prod => {
                 if(prod.gender === 'hombre') {
                     gridHombre.appendChild(createProductCard(prod));
@@ -821,15 +933,18 @@
         function updateCartUI() {
             document.getElementById('cart-count').innerText = carrito.length;
             const cartContainer = document.getElementById('cart-items-container');
+            const paymentBox = document.getElementById('payment-box-section');
             cartContainer.innerHTML = '';
 
             if(carrito.length === 0) {
                 cartContainer.innerHTML = '<div class="empty-message">Tu carrito está vacío.</div>';
                 document.getElementById('summary-subtotal').innerText = 'S/. 0.00';
                 document.getElementById('summary-total').innerText = 'S/. 0.00';
+                paymentBox.style.display = 'none';
                 return;
             }
 
+            paymentBox.style.display = 'block';
             let subtotal = 0;
             carrito.forEach((item, index) => {
                 subtotal += item.price;
@@ -849,10 +964,36 @@
             document.getElementById('summary-total').innerText = `S/. ${subtotal.toFixed(2)}`;
         }
 
+        /* --- CONTROL DE FORMULARIOS DE PAGO --- */
+        function togglePaymentFields() {
+            const method = document.getElementById('payment-select').value;
+            document.getElementById('fields-tarjeta').style.display = method === 'tarjeta' ? 'block' : 'none';
+            document.getElementById('fields-yape').style.display = method === 'yape' ? 'block' : 'none';
+            document.getElementById('fields-plin').style.display = method === 'plin' ? 'block' : 'none';
+        }
+
         function checkout() {
             if(carrito.length === 0) return;
-            alert("¡Pedido procesado con éxito en KG Store!");
-            carrito = []; updateCartUI(); switchView('inicio');
+            
+            // Simular validación rápida
+            const method = document.getElementById('payment-select').value;
+            if(method === 'tarjeta' && !document.getElementById('card-num').value) {
+                alert('Por favor ingresa los datos de tu tarjeta.'); return;
+            } else if(method === 'yape' && !document.getElementById('yape-phone').value) {
+                alert('Por favor ingresa tu número de Yape.'); return;
+            } else if(method === 'plin' && !document.getElementById('plin-phone').value) {
+                alert('Por favor ingresa tu número de Plin.'); return;
+            }
+
+            // Mostrar el modal elegante central
+            document.getElementById('success-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('success-modal').style.display = 'none';
+            carrito = []; 
+            updateCartUI(); 
+            switchView('inicio');
         }
 
         function handleLogin(e) {
