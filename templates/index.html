@@ -487,7 +487,7 @@
             z-index: 10;
         }
 
-        /* --- REESTRUCTURACIÓN DE LA SECCIÓN CONTACTO (Inspirado en image_6bd077.png) --- */
+        /* --- SECCIÓN CONTACTO (Inspirado en image_6bd077.png) --- */
         .contacto-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -538,7 +538,7 @@
             text-align: center;
         }
 
-        /* Botón de WhatsApp estilizado a blanco y negro */
+        /* Botón de WhatsApp */
         .btn-whatsapp {
             display: inline-flex;
             align-items: center;
@@ -563,12 +563,12 @@
             color: var(--blanco-accento);
         }
 
-        /* Contenedor del Mapa Monocromático */
+        /* Contenedor del Mapa (FILTRO ELIMINADO PARA VERLO COLORIDO) */
         .contacto-map-side {
             width: 100%;
             height: 380px;
             border: 1px solid var(--borde-gris);
-            filter: grayscale(100%) invert(90%) contrast(120%); /* Efecto visual de mapa oscuro elegante */
+            /* Se quitó el filter grayscale para que sea a todo color */
         }
 
         .contacto-map-side iframe {
@@ -757,7 +757,7 @@
             </div>
         </section>
 
-        <!-- VISTA: CONTACTO (Rediseño Estructura Asimétrica image_6bd077.png) -->
+        <!-- VISTA: CONTACTO (Mapa Colorido Integrado) -->
         <section id="view-contacto" class="view-section">
             <h2 class="section-title">Encuéntranos</h2>
             
@@ -787,7 +787,7 @@
                         <span>contacto@kgstore.pe</span>
                     </div>
 
-                    <!-- Enlace directo que abre WhatsApp Web / App -->
+                    <!-- Enlace directo que abre WhatsApp Web con mensaje personalizado -->
                     <a href="https://web.whatsapp.com/send?phone=51999999999&text=Hola%20KG%20Store,%20solicito%20informaci%C3%B3n%20sobre%20sus%20prendas." 
                        target="_blank" 
                        class="btn-whatsapp">
@@ -795,7 +795,7 @@
                     </a>
                 </div>
 
-                <!-- Bloque derecho: Mapa Integrado de Google Maps (Estilizado Monocromo) -->
+                <!-- Bloque derecho: Mapa Original de Google Maps con Colores Vivos -->
                 <div class="contacto-map-side">
                     <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.1973685519895!2d-77.0336214!3d-12.105432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c8669e469573%3A0x6b24df4ef98e6c7c!2sAv.%20Arequipa%201234%2C%20Miraflores%2015074!5e0!3m2!1ses-419!2spe!4v1710000000000!5m2!1ses-419!2spe" 
