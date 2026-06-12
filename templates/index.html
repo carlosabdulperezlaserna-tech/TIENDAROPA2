@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KG Store & Panel Admin</title>
+    <title>KG Streetwear Store</title>
     <!-- Iconos de FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -138,7 +138,7 @@
 
         /* --- SECCIÓN INICIO --- */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.pexels.com/photos/1020370/pexels-photo-1020370.jpeg?auto=compress&cs=tinysrgb&w=1200') center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.95)), url('https://loremflickr.com/1200/400/streetwear,urban/all') center/cover;
             height: 350px;
             display: flex;
             flex-direction: column;
@@ -192,12 +192,12 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s, filter 0.3s;
-            filter: brightness(0.6); 
+            filter: brightness(0.5); 
         }
 
         .banner-card:hover img {
             transform: scale(1.03);
-            filter: brightness(0.8);
+            filter: brightness(0.7);
         }
 
         .banner-text {
@@ -250,6 +250,7 @@
             width: 100%;
             height: 340px;
             object-fit: cover;
+            background-color: #0c0c0c;
             transition: transform 0.3s ease;
         }
 
@@ -550,38 +551,38 @@
         <!-- INICIO -->
         <section id="view-inicio" class="view-section active">
             <div class="hero">
-                <h1>BIENVENIDO A <span>KG</span></h1>
-                <p>Descubre las últimas tendencias urbanas y casuales con envíos gratuitos a todo Lima.</p>
+                <h1>STREETWEAR <span>KG</span></h1>
+                <p>La revolución del estilo urbano: Hoodies Oversized, Baggy Pants y Accesorios Exclusivos.</p>
             </div>
             <div class="categories-banners">
                 <div class="banner-card" onclick="switchView('hombre')">
-                    <img src="https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Hombres">
+                    <img src="https://loremflickr.com/600/400/streetwear,man,style/all" alt="Hombres">
                     <div class="banner-text">
                         <h3>Hombres</h3>
-                        <span>Ver catálogo <i class="fa-solid fa-arrow-right"></i></span>
+                        <span>Drop Holgado <i class="fa-solid fa-arrow-right"></i></span>
                     </div>
                 </div>
                 <div class="banner-card" onclick="switchView('mujer')">
-                    <img src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Mujeres">
+                    <img src="https://loremflickr.com/600/400/streetwear,woman,style/all" alt="Mujeres">
                     <div class="banner-text">
                         <h3>Mujeres</h3>
-                        <span>Ver catálogo <i class="fa-solid fa-arrow-right"></i></span>
+                        <span>Drop Holgado <i class="fa-solid fa-arrow-right"></i></span>
                     </div>
                 </div>
             </div>
-            <h2 class="section-title">Productos Destacados</h2>
+            <h2 class="section-title">Último Drop Destacado</h2>
             <div class="products-grid" id="grid-inicio"></div>
         </section>
 
         <!-- HOMBRE -->
         <section id="view-hombre" class="view-section">
-            <h2 class="section-title">Colección Varones</h2>
+            <h2 class="section-title">Colección Varones - Baggy & Oversized</h2>
             <div class="products-grid" id="grid-hombre"></div>
         </section>
 
         <!-- MUJER -->
         <section id="view-mujer" class="view-section">
-            <h2 class="section-title">Colección Damas</h2>
+            <h2 class="section-title">Colección Damas - Baggy & Oversized</h2>
             <div class="products-grid" id="grid-mujer"></div>
         </section>
 
@@ -696,27 +697,27 @@
     </div>
 
     <script>
-        /* --- BASE DE DATOS LOCAL CORREGIDA CON JUEGOS DE IMÁGENES ULTRA ESTABLES --- */
+        /* --- BASE DE DATOS LOCAL TOTALMENTE ACTUALIZADA A HOODIES, JEANS BAGGY Y ACCESORIOS --- */
         let productos = [
-            // SECCIÓN HOMBRES: Filtros estrictos de ropa masculina colorida
-            { id: 1, name: "Chaqueta Cuero Marrón Camel", price: 249.90, gender: "hombre", img: "https://loremflickr.com/500/680/jacket,leather,man/all" },
-            { id: 2, name: "Polera Urbana Verde Bosque", price: 125.00, gender: "hombre", img: "https://images.pexels.com/photos/5413158/pexels-photo-5413158.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { id: 3, name: "Camisa Casual Terracota", price: 95.00, gender: "hombre", img: "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { id: 4, name: "Chaqueta Denim Azul Clásico", price: 189.90, gender: "hombre", img: "https://images.pexels.com/photos/10002131/pexels-photo-10002131.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { id: 5, name: "Polera Hoodie Amarillo Vibrante", price: 119.00, gender: "hombre", img: "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { id: 6, name: "Casaca Impermeable Naranja", price: 169.90, gender: "hombre", img: "https://loremflickr.com/500/680/orange,jacket,man/all" },
-            { id: 7, name: "Polera Casual Rojo Escarlata", price: 99.90, gender: "hombre", img: "https://images.pexels.com/photos/4066063/pexels-photo-4066063.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { id: 8, name: "Gorra Deportiva Azul Royal", price: 49.90, gender: "hombre", img: "https://loremflickr.com/500/680/cap,blue/all" },
+            // SECCIÓN HOMBRES (Streetwear, Baggy & Accesorios)
+            { id: 1, name: "Jeans Baggy Azul Heavy Denim", price: 159.90, gender: "hombre", img: "https://loremflickr.com/500/680/baggy,jeans,man/all" },
+            { id: 2, name: "Busos Baggy Jogger Gris Melange", price: 129.00, gender: "hombre", img: "https://loremflickr.com/500/680/sweatpants,man,urban/all" },
+            { id: 3, name: "Hoodie Oversized Negro Heavyweight", price: 165.00, gender: "hombre", img: "https://loremflickr.com/500/680/hoodie,black,man/all" },
+            { id: 4, name: "Polera Oversized Acid Wash Verde", price: 119.90, gender: "hombre", img: "https://loremflickr.com/500/680/oversized,shirt,man/all" },
+            { id: 5, name: "Pantalón Baggy Cargo Beige", price: 169.00, gender: "hombre", img: "https://loremflickr.com/500/680/cargo,pants,man/all" },
+            { id: 6, name: "Gorra Snapback Urbana Negra", price: 59.90, gender: "hombre", img: "https://loremflickr.com/500/680/cap,black,urban/all" },
+            { id: 7, name: "Lentes de Sol Urban Cyberpunk", price: 79.90, gender: "hombre", img: "https://loremflickr.com/500/680/sunglasses,man/all" },
+            { id: 8, name: "Cadena de Eslabones Cuban Silver", price: 49.90, gender: "hombre", img: "https://loremflickr.com/500/680/chain,necklace/all" },
             
-            // SECCIÓN MUJERES: Filtros estrictos de ropa femenina colorida
-            { id: 9, name: "Vestido de Gala Rojo Pasión", price: 189.90, gender: "mujer", img: "https://images.pexels.com/photos/985635/pexels-photo-985635.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { id: 10, name: "Blusa Satinada Verde Esmeralda", price: 89.00, gender: "mujer", img: "https://loremflickr.com/500/680/blouse,green,woman/all" },
-            { id: 11, name: "Casaca Acolchada Rosa Pastel", price: 199.90, gender: "mujer", img: "https://loremflickr.com/500/680/pink,coat,woman/all" },
-            { id: 12, name: "Enterizo Casual Amarillo Sol", price: 145.00, gender: "mujer", img: "https://images.pexels.com/photos/2811088/pexels-photo-2811088.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { id: 13, name: "Falta Plisada Azul Celeste", price: 95.00, gender: "mujer", img: "https://loremflickr.com/500/680/skirt,blue,woman/all" },
-            { id: 14, name: "Chaqueta Cortavientos Amarilla", price: 175.00, gender: "mujer", img: "https://images.pexels.com/photos/1018911/pexels-photo-1018911.jpeg?auto=compress&cs=tinysrgb&w=500" },
-            { id: 15, name: "Suéter Tejido Lila Lavanda", price: 110.00, gender: "mujer", img: "https://loremflickr.com/500/680/purple,sweater,woman/all" },
-            { id: 16, name: "Blusa Manga Larga Carmín", price: 79.90, gender: "mujer", img: "https://images.pexels.com/photos/7622432/pexels-photo-7622432.jpeg?auto=compress&cs=tinysrgb&w=500" }
+            // SECCIÓN MUJERES (Streetwear, Baggy & Accesorios)
+            { id: 9, name: "Jeans Baggy Wide Leg Celeste", price: 159.90, gender: "mujer", img: "https://loremflickr.com/500/680/baggy,jeans,woman/all" },
+            { id: 10, name: "Busos Baggy Jogger Chocolate", price: 129.00, gender: "mujer", img: "https://loremflickr.com/500/680/sweatpants,woman,urban/all" },
+            { id: 11, name: "Hoodie Oversized Pastel Pink", price: 165.00, gender: "mujer", img: "https://loremflickr.com/500/680/hoodie,pink,woman/all" },
+            { id: 12, name: "Polera Boxy Fit Off-White", price: 109.00, gender: "mujer", img: "https://loremflickr.com/500/680/oversized,woman,shirt/all" },
+            { id: 13, name: "Pantalón Baggy Parachute Negro", price: 175.00, gender: "mujer", img: "https://loremflickr.com/500/680/parachute,pants,woman/all" },
+            { id: 14, name: "Gorro Bucket Hat Teddy Beige", price: 65.00, gender: "mujer", img: "https://loremflickr.com/500/680/buckethat,woman/all" },
+            { id: 15, name: "Lentes de Sol Oval Retro Vintage", price: 79.90, gender: "mujer", img: "https://loremflickr.com/500/680/sunglasses,woman/all" },
+            { id: 16, name: "Bolso Crossbody Utility Técnico", price: 89.90, gender: "mujer", img: "https://loremflickr.com/500/680/bag,streetwear/all" }
         ];
 
         let carrito = [];
@@ -742,7 +743,7 @@
             gridHombre.innerHTML = '';
             gridMujer.innerHTML = '';
 
-            // Mix inicial destacado
+            // Mix inicial destacado para Home
             productos.slice(0, 4).forEach(prod => gridInicio.appendChild(createProductCard(prod, true)));
             productos.slice(8, 12).forEach(prod => gridInicio.appendChild(createProductCard(prod, true)));
 
@@ -756,8 +757,9 @@
         function createProductCard(prod, showBadge) {
             const card = document.createElement('div');
             card.className = 'product-card';
+            // El atributo onerror inyecta un fallback con un ID aleatorio del mismo término si el enlace principal falla
             card.innerHTML = `
-                <img src="${prod.img}" alt="${prod.name}" class="product-img" onerror="this.src='https://loremflickr.com/500/680/clothes?random='+Math.random()">
+                <img src="${prod.img}" alt="${prod.name}" class="product-img" onerror="this.onerror=null; this.src='https://loremflickr.com/500/680/streetwear,fashion/all?random='+Math.random();">
                 <div class="product-info">
                     ${showBadge ? `<div class="product-badge">${prod.gender === 'hombre' ? 'Varón' : 'Dama'}</div>` : ''}
                     <h3 class="product-name">${prod.name}</h3>
@@ -810,7 +812,7 @@
 
         function checkout() {
             if(carrito.length === 0) return;
-            alert("¡Pedido Procesado Exitosamente!");
+            alert("¡Pedido Streetwear Procesado Exitosamente!");
             carrito = []; updateCartUI(); switchView('inicio');
         }
 
@@ -840,7 +842,7 @@
             const name = document.getElementById('admin-name').value;
             const price = parseFloat(document.getElementById('admin-price').value);
             const gender = document.getElementById('admin-gender').value;
-            const img = document.getElementById('admin-img').value || "https://loremflickr.com/500/680/fashion";
+            const img = document.getElementById('admin-img').value || "https://loremflickr.com/500/680/streetwear";
             const newId = productos.length + 1;
             productos.push({ id: newId, name, price, gender, img });
             renderAdminTable(); renderStore();
