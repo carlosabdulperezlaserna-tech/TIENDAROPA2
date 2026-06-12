@@ -229,7 +229,7 @@
             color: var(--blanco-accento);
         }
 
-        /* --- CUADRÍCULA DE PRODUCTOS (Monocromática) --- */
+        /* --- CUADRÍCULA DE PRODUCTOS --- */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -368,7 +368,6 @@
             border-color: var(--blanco-accento);
         }
 
-        /* Alerta de error */
         .error-message {
             background-color: #000000;
             border: 1px solid #ffffff;
@@ -403,18 +402,6 @@
             color: var(--blanco-accento);
         }
 
-        .login-footer {
-            margin-top: 1.5rem;
-            text-align: center;
-            color: var(--texto-gris);
-            font-size: 0.95rem;
-        }
-
-        .login-footer a {
-            color: var(--blanco-accento);
-            text-decoration: underline;
-        }
-
         /* --- INTERFAZ CARRITO --- */
         .cart-layout {
             display: grid;
@@ -439,33 +426,6 @@
             align-items: center;
             padding: 1rem 0;
             border-bottom: 1px solid var(--borde-gris);
-        }
-
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-
-        .cart-item-details h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .cart-item-details p {
-            color: var(--texto-blanco);
-            font-weight: bold;
-        }
-
-        .btn-remove {
-            background: none;
-            border: none;
-            color: var(--texto-gris);
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-        }
-
-        .btn-remove:hover {
-            color: var(--blanco-accento);
         }
 
         .cart-summary {
@@ -494,10 +454,6 @@
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .admin-layout { grid-template-columns: 1fr; }
         }
 
         .admin-box {
@@ -529,58 +485,96 @@
             position: sticky;
             top: 0;
             z-index: 10;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
         }
 
-        /* --- SECCIÓN CONTACTO --- */
-        .contacto-section {
-            padding: 4rem 0;
+        /* --- REESTRUCTURACIÓN DE LA SECCIÓN CONTACTO (Inspirado en image_6bd077.png) --- */
+        .contacto-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde-gris);
+            padding: 3rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 850px) {
+            .contacto-wrapper {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+                gap: 2rem;
+            }
+        }
+
+        .contacto-info-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contacto-info-side h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            border-left: 3px solid var(--blanco-accento);
+            padding-left: 10px;
+        }
+
+        .contacto-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            color: var(--texto-blanco);
+        }
+
+        .contacto-item i {
+            font-size: 1.2rem;
+            color: var(--blanco-accento);
+            width: 24px;
             text-align: center;
         }
 
-        .contacto-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(280px, 400px));
-            gap: 1.5rem;
-            justify-content: center;
-            margin-top: 2.5rem;
-        }
-
-        @media (max-width: 650px) {
-            .contacto-grid { grid-template-columns: 1fr; }
-        }
-
-        .contacto-card {
-            background-color: var(--bg-tarjeta);
-            border-left: 4px solid var(--blanco-accento);
-            padding: 1.2rem 1.5rem;
-            display: flex;
+        /* Botón de WhatsApp estilizado a blanco y negro */
+        .btn-whatsapp {
+            display: inline-flex;
             align-items: center;
-            gap: 1rem;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: #ffffff;
-            text-align: left;
-            border: 1px solid var(--borde-gris);
-            border-left: 4px solid var(--blanco-accento);
+            justify-content: center;
+            gap: 0.8rem;
+            background-color: var(--blanco-accento);
+            color: var(--bg-principal);
+            border: 1px solid var(--blanco-accento);
+            padding: 0.9rem 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            transition: background 0.3s, color 0.3s;
+            width: fit-content;
         }
 
-        .contacto-card i {
-            font-size: 1.3rem;
+        .btn-whatsapp:hover {
+            background-color: var(--bg-principal);
             color: var(--blanco-accento);
         }
 
-        .contacto-card.link-maps {
-            cursor: pointer;
-            transition: background 0.3s;
+        /* Contenedor del Mapa Monocromático */
+        .contacto-map-side {
+            width: 100%;
+            height: 380px;
+            border: 1px solid var(--borde-gris);
+            filter: grayscale(100%) invert(90%) contrast(120%); /* Efecto visual de mapa oscuro elegante */
         }
-        .contacto-card.link-maps span {
-            text-decoration: underline;
-        }
-        .contacto-card.link-maps:hover {
-            background-color: #222222;
+
+        .contacto-map-side iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
         .empty-message {
@@ -640,34 +634,26 @@
             </div>
 
             <h2 class="section-title">Productos Destacados</h2>
-            <div class="products-grid" id="grid-inicio">
-                <!-- Inyección dinámica -->
-            </div>
+            <div class="products-grid" id="grid-inicio"></div>
         </section>
 
         <!-- VISTA: HOMBRE -->
         <section id="view-hombre" class="view-section">
             <h2 class="section-title">Colección Varones</h2>
-            <div class="products-grid" id="grid-hombre">
-                <!-- Inyección dinámica -->
-            </div>
+            <div class="products-grid" id="grid-hombre"></div>
         </section>
 
         <!-- VISTA: MUJER -->
         <section id="view-mujer" class="view-section">
             <h2 class="section-title">Colección Damas</h2>
-            <div class="products-grid" id="grid-mujer">
-                <!-- Inyección dinámica -->
-            </div>
+            <div class="products-grid" id="grid-mujer"></div>
         </section>
 
         <!-- VISTA: CARRITO DE COMPRAS -->
         <section id="view-carrito" class="view-section">
             <h2 class="section-title">Tu Carrito de Compras</h2>
             <div class="cart-layout">
-                <div class="cart-items-list" id="cart-items-container">
-                    <!-- Elementos del carrito -->
-                </div>
+                <div class="cart-items-list" id="cart-items-container"></div>
                 <div class="cart-summary">
                     <h3>Resumen del Pedido</h3>
                     <br>
@@ -703,12 +689,9 @@
                     <div class="login-header">
                         <i class="fa-solid fa-lock"></i> Iniciar Sesión
                     </div>
-                    
-                    <!-- Cuadro de Alerta en interfaz -->
                     <div class="error-message" id="login-error-box">
                         <i class="fa-solid fa-circle-exclamation"></i> Credenciales invalidas
                     </div>
-
                     <form id="login-form" onsubmit="handleLogin(event)">
                         <div class="form-group">
                             <label>Usuario</label>
@@ -720,9 +703,6 @@
                         </div>
                         <button type="submit" class="btn-submit">Entrar</button>
                     </form>
-                    <div class="login-footer">
-                        ¿No tienes cuenta? <a href="#">Regístrate aquí</a>
-                    </div>
                 </div>
             </div>
         </section>
@@ -770,37 +750,61 @@
                                     <th>Acción</th>
                                 </tr>
                             </thead>
-                            <tbody id="admin-table-body">
-                                <!-- Filas de la tabla -->
-                            </tbody>
+                            <tbody id="admin-table-body"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- VISTA: CONTACTO -->
+        <!-- VISTA: CONTACTO (Rediseño Estructura Asimétrica image_6bd077.png) -->
         <section id="view-contacto" class="view-section">
-            <div class="contacto-section">
-                <h2 class="section-title" style="font-size: 2.2rem;">Contacto</h2>
-                <div class="contacto-grid">
-                    <div class="contacto-card">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Lima - Perú</span>
+            <h2 class="section-title">Encuéntranos</h2>
+            
+            <div class="contacto-wrapper">
+                
+                <!-- Bloque izquierdo: Información Física de la Tienda -->
+                <div class="contacto-info-side">
+                    <h3>KG Store - Tienda Física</h3>
+                    
+                    <div class="contacto-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Av. Arequipa 1234, Miraflores, Lima</span>
                     </div>
-                    <div class="contacto-card">
-                        <i class="fa-solid fa-phone"></i>
-                        <span>993 331 7571</span>
-                    </div>
-                    <div class="contacto-card">
+                    
+                    <div class="contacto-item">
                         <i class="fa-solid fa-clock"></i>
-                        <span>Lunes a sábado: 7:00 am - 6:00 pm</span>
+                        <span>Lun - Sab: 9:00am - 7:00pm</span>
                     </div>
-                    <div class="contacto-card link-maps">
-                        <i class="fa-solid fa-map-pin"></i>
-                        <span>Ver ubicación en Google Maps</span>
+                    
+                    <div class="contacto-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+51 999 999 999</span>
                     </div>
+                    
+                    <div class="contacto-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>contacto@kgstore.pe</span>
+                    </div>
+
+                    <!-- Enlace directo que abre WhatsApp Web / App -->
+                    <a href="https://web.whatsapp.com/send?phone=51999999999&text=Hola%20KG%20Store,%20solicito%20informaci%C3%B3n%20sobre%20sus%20prendas." 
+                       target="_blank" 
+                       class="btn-whatsapp">
+                        <i class="fa-brands fa-whatsapp"></i> Escríbenos por WhatsApp
+                    </a>
                 </div>
+
+                <!-- Bloque derecho: Mapa Integrado de Google Maps (Estilizado Monocromo) -->
+                <div class="contacto-map-side">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.1973685519895!2d-77.0336214!3d-12.105432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c8669e469573%3A0x6b24df4ef98e6c7c!2sAv.%20Arequipa%201234%2C%20Miraflores%2015074!5e0!3m2!1ses-419!2spe!4v1710000000000!5m2!1ses-419!2spe" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
             </div>
         </section>
 
@@ -826,7 +830,6 @@
 
         let carrito = [];
 
-        /* --- CONTROL DE VISTAS --- */
         function switchView(viewName) {
             document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.nav-menu a').forEach(link => link.classList.remove('active'));
@@ -840,11 +843,9 @@
             if(viewName !== 'login') {
                 document.getElementById('login-error-box').style.display = 'none';
             }
-
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        /* --- RENDERIZADO DE TIENDA --- */
         function renderStore() {
             const gridInicio = document.getElementById('grid-inicio');
             const gridHombre = document.getElementById('grid-hombre');
@@ -858,16 +859,10 @@
             const destacadosMujer = productos.filter(p => p.gender === 'mujer').slice(0, 4);
             const destacadosMix = [...destacadosHombre, ...destacadosMujer];
 
-            destacadosMix.forEach(prod => {
-                gridInicio.appendChild(createProductCard(prod, true));
-            });
-
+            destacadosMix.forEach(prod => gridInicio.appendChild(createProductCard(prod, true)));
             productos.forEach(prod => {
-                if(prod.gender === 'hombre') {
-                    gridHombre.appendChild(createProductCard(prod, false));
-                } else {
-                    gridMujer.appendChild(createProductCard(prod, false));
-                }
+                if(prod.gender === 'hombre') gridHombre.appendChild(createProductCard(prod, false));
+                else gridMujer.appendChild(createProductCard(prod, false));
             });
         }
 
@@ -886,18 +881,13 @@
             return card;
         }
 
-        /* --- MANEJO DEL CARRITO --- */
         function addToCart(id) {
             const prod = productos.find(p => p.id === id);
-            if(prod) {
-                carrito.push(prod);
-                updateCartUI();
-            }
+            if(prod) { carrito.push(prod); updateCartUI(); }
         }
 
         function removeFromCart(index) {
-            carrito.splice(index, 1);
-            updateCartUI();
+            carrito.splice(index, 1); updateCartUI();
         }
 
         function updateCartUI() {
@@ -920,11 +910,9 @@
                 itemRow.innerHTML = `
                     <div class="cart-item-details">
                         <h4>${item.name}</h4>
-                        <p>S/. ${item.price.toFixed(2)} <span style="color:gray; font-size:0.85rem;">(${item.gender === 'hombre' ? 'Varón' : 'Dama'})</span></p>
+                        <p>S/. ${item.price.toFixed(2)}</p>
                     </div>
-                    <button class="btn-remove" onclick="removeFromCart(${index})">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
+                    <button class="btn-remove" onclick="removeFromCart(${index})"><i class="fa-solid fa-trash-can"></i></button>
                 `;
                 cartContainer.appendChild(itemRow);
             });
@@ -934,29 +922,21 @@
         }
 
         function checkout() {
-            if(carrito.length === 0) {
-                alert("El carrito está vacío.");
-                return;
-            }
-            const metodo = document.getElementById('payment-method').value;
-            alert(`¡Pedido Procesado en KG!\nMétodo de pago: ${metodo.toUpperCase()}\n¡Gracias por tu preferencia!`);
-            carrito = [];
-            updateCartUI();
-            switchView('inicio');
+            if(carrito.length === 0) return alert("El carrito está vacío.");
+            alert(`¡Pedido Procesado en KG!\n¡Gracias por tu preferencia!`);
+            carrito = []; updateCartUI(); switchView('inicio');
         }
 
-        /* --- CONTROL DE LOGIN CON VALIDACIÓN EXPLICITADA --- */
         function handleLogin(e) {
             e.preventDefault();
-            const usuarioIngresado = document.getElementById('login-user').value;
-            const contrasenaIngresada = document.getElementById('login-pass').value;
+            const user = document.getElementById('login-user').value;
+            const pass = document.getElementById('login-pass').value;
             const errorBox = document.getElementById('login-error-box');
 
-            if (usuarioIngresado === 'carlos' && contrasenaIngresada === '123') {
+            if (user === 'carlos' && pass === '123') {
                 errorBox.style.display = 'none';
-                alert(`Acceso correcto. Bienvenido al panel administrativo, ${usuarioIngresado}.`);
-                switchView('admin');
-                renderAdminTable();
+                alert(`Acceso correcto. Bienvenido, ${user}.`);
+                switchView('admin'); renderAdminTable();
                 document.getElementById('login-form').reset();
             } else {
                 errorBox.style.display = 'flex';
@@ -964,11 +944,9 @@
             }
         }
 
-        /* --- CONTROL PANEL ADMINISTRATIVO --- */
         function renderAdminTable() {
             const tbody = document.getElementById('admin-table-body');
             tbody.innerHTML = '';
-
             productos.forEach(prod => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
@@ -976,11 +954,7 @@
                     <td>${prod.name}</td>
                     <td>S/. ${prod.price.toFixed(2)}</td>
                     <td style="text-transform: capitalize;">${prod.gender}</td>
-                    <td>
-                        <button onclick="deleteProduct(${prod.id})" style="background:none; border:none; color:var(--texto-blanco); text-decoration: underline; cursor:pointer;">
-                            Borrar
-                        </button>
-                    </td>
+                    <td><button onclick="deleteProduct(${prod.id})" style="background:none; border:none; color:var(--texto-blanco); text-decoration: underline; cursor:pointer;">Borrar</button></td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -991,31 +965,23 @@
             const name = document.getElementById('admin-name').value;
             const price = parseFloat(document.getElementById('admin-price').value);
             const gender = document.getElementById('admin-gender').value;
-            let img = document.getElementById('admin-img').value;
-
-            if(!img) img = "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500";
+            let img = document.getElementById('admin-img').value || "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500";
 
             const newId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1;
             productos.push({ id: newId, name, price, gender, img });
-            
             document.getElementById('admin-product-form').reset();
-            renderAdminTable();
-            renderStore();
-            alert("Producto guardado e integrado al catálogo de KG.");
+            renderAdminTable(); renderStore();
+            alert("Producto guardado.");
         }
 
         function deleteProduct(id) {
-            if(confirm("¿Eliminar este producto permanentemente?")) {
+            if(confirm("¿Eliminar producto?")) {
                 productos = productos.filter(p => p.id !== id);
-                renderAdminTable();
-                renderStore();
+                renderAdminTable(); renderStore();
             }
         }
 
-        window.onload = function() {
-            renderStore();
-            updateCartUI();
-        };
+        window.onload = function() { renderStore(); updateCartUI(); };
     </script>
 </body>
 </html>
