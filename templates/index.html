@@ -36,7 +36,6 @@
         header {
             background-color: var(--bg-tarjeta);
             border-bottom: 2px solid var(--borde-gris);
-            sticky: top;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -157,7 +156,7 @@
 
         .product-img {
             width: 100%;
-            height: 250px;
+            height: 280px;
             object-fit: cover;
             background-color: #2e2e2e;
         }
@@ -172,6 +171,7 @@
         .product-name {
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
         .product-price {
@@ -203,7 +203,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 60px;
             padding: 2rem 0;
         }
 
@@ -264,8 +263,7 @@
             font-weight: bold;
             cursor: pointer;
             transition: background 0.3s;
-            width: auto;
-            display: inline-block;
+            width: 100%;
         }
 
         .btn-submit:hover {
@@ -374,7 +372,8 @@
         }
 
         .table-wrapper {
-            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
         }
 
         table {
@@ -392,6 +391,9 @@
         table th {
             color: var(--naranja-accento);
             background-color: rgba(230, 126, 34, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         /* --- SECCIÓN CONTACTO (Réplica exacta de image_76b9f9.png) --- */
@@ -431,10 +433,9 @@
             font-size: 1.3rem;
         }
 
-        /* Colores específicos de los iconos de la imagen */
-        .contacto-card .fa-map-pin { color: #ec407a; } /* Rosa */
-        .contacto-card .fa-phone { color: #ec407a; }   /* Rosa */
-        .contacto-card .fa-clock { color: #b0bec5; }   /* Gris claro */
+        .contacto-card .fa-map-pin { color: #ec407a; } 
+        .contacto-card .fa-phone { color: #ec407a; }   
+        .contacto-card .fa-clock { color: #b0bec5; }   
 
         .contacto-card.link-maps {
             cursor: pointer;
@@ -482,7 +483,7 @@
         <section id="view-hombre" class="view-section active">
             <h2 class="section-title">Colección Varones</h2>
             <div class="products-grid" id="grid-hombre">
-                <!-- Se inyecta dinámicamente con JS -->
+                <!-- Inyección dinámica -->
             </div>
         </section>
 
@@ -490,7 +491,7 @@
         <section id="view-mujer" class="view-section">
             <h2 class="section-title">Colección Damas</h2>
             <div class="products-grid" id="grid-mujer">
-                <!-- Se inyecta dinámicamente con JS -->
+                <!-- Inyección dinámica -->
             </div>
         </section>
 
@@ -499,7 +500,7 @@
             <h2 class="section-title">Tu Carrito de Compras</h2>
             <div class="cart-layout">
                 <div class="cart-items-list" id="cart-items-container">
-                    <!-- Elementos agregados -->
+                    <!-- Elementos del carrito -->
                 </div>
                 <div class="cart-summary">
                     <h3>Resumen del Pedido</h3>
@@ -529,7 +530,7 @@
             </div>
         </section>
 
-        <!-- VISTA: INICIAR SESIÓN (Réplica image_76bce6.png) -->
+        <!-- VISTA: INICIAR SESIÓN (Réplica de image_76bce6.png) -->
         <section id="view-login" class="view-section">
             <div class="login-wrapper">
                 <div class="login-card">
@@ -545,7 +546,7 @@
                             <label>Contraseña</label>
                             <input type="password" id="login-pass" placeholder="Tu contraseña" required>
                         </div>
-                        <button type="submit" class="btn-submit" style="width: 100%; margin-top: 0.5rem;">Entrar</button>
+                        <button type="submit" class="btn-submit">Entrar</button>
                     </form>
                     <div class="login-footer">
                         ¿No tienes cuenta? <a href="#">Regístrate aquí</a>
@@ -558,18 +559,18 @@
         <section id="view-admin" class="view-section">
             <h2 class="section-title">Panel de Control / Inventario</h2>
             <div class="admin-layout">
-                <!-- Formulario Agregar -->
+                <!-- Formulario -->
                 <div class="admin-box">
                     <h3>Añadir Nuevo Producto</h3>
                     <br>
                     <form id="admin-product-form" onsubmit="addProduct(event)">
                         <div class="form-group">
                             <label>Nombre del Producto</label>
-                            <input type="text" id="admin-name" placeholder="Ej: Casaca de Cuero" required>
+                            <input type="text" id="admin-name" placeholder="Ej: Camisa de Lino" required>
                         </div>
                         <div class="form-group">
                             <label>Precio (S/.)</label>
-                            <input type="number" step="0.01" id="admin-price" placeholder="Ej: 149.90" required>
+                            <input type="number" step="0.01" id="admin-price" placeholder="Ej: 89.90" required>
                         </div>
                         <div class="form-group">
                             <label>Categoría / Género</label>
@@ -581,12 +582,11 @@
                         <div class="form-group">
                             <label>URL de la Imagen</label>
                             <input type="text" id="admin-img" placeholder="https://ejemplo.com/foto.jpg">
-                            <small style="color: var(--texto-gris); font-size: 0.8rem;">(Si se deja en blanco, usará una por defecto)</small>
                         </div>
-                        <button type="submit" class="btn-submit" style="width: 100%;">Guardar Producto</button>
+                        <button type="submit" class="btn-submit">Guardar Producto</button>
                     </form>
                 </div>
-                <!-- Tabla Listado -->
+                <!-- Tabla -->
                 <div class="admin-box">
                     <h3>Productos en Base de Datos</h3>
                     <div class="table-wrapper">
@@ -601,7 +601,7 @@
                                 </tr>
                             </thead>
                             <tbody id="admin-table-body">
-                                <!-- Filas dinámicas -->
+                                <!-- Filas de la tabla -->
                             </tbody>
                         </table>
                     </div>
@@ -613,23 +613,19 @@
         <section id="view-contacto" class="view-section">
             <div class="contacto-section">
                 <h2 class="section-title" style="font-size: 2.2rem;">Contacto</h2>
-                
                 <div class="contacto-grid">
                     <div class="contacto-card">
                         <i class="fa-solid fa-map-pin"></i>
                         <span>Lima - Perú</span>
                     </div>
-                    
                     <div class="contacto-card">
                         <i class="fa-solid fa-phone"></i>
                         <span>993 331 7571</span>
                     </div>
-                    
                     <div class="contacto-card">
                         <i class="fa-solid fa-clock"></i>
                         <span>Lunes a sábado: 7:00 am - 6:00 pm</span>
                     </div>
-                    
                     <div class="contacto-card link-maps">
                         <i class="fa-solid fa-map-pin"></i>
                         <span>Ver ubicación en Google Maps</span>
@@ -641,39 +637,40 @@
     </div>
 
     <script>
-        /* --- BASE DE DATOS LOCAL DE PRODUCTOS (MOCK) --- */
+        /* --- BASE DE DATOS LOCAL AMPLIADA --- */
         let productos = [
+            // SECCIÓN HOMBRES
             { id: 1, name: "Chaqueta Denim Premium", price: 189.90, gender: "hombre", img: "https://images.unsplash.com/photo-1611312449412-6cefac5dc3e4?w=500" },
             { id: 2, name: "Polera Oversize Urbana", price: 120.00, gender: "hombre", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500" },
             { id: 3, name: "Camisa Slim Fit Lino", price: 95.00, gender: "hombre", img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500" },
-            { id: 4, name: "Vestido Floral de Verano", price: 159.90, gender: "mujer", img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500" },
-            { id: 5, name: "Blusa Elegante Satinada", price: 89.00, gender: "mujer", img: "https://images.unsplash.com/photo-1548624149-f1bc346f353a?w=500" },
-            { id: 6, name: "Jean High Waist Azul", price: 135.00, gender: "mujer", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" }
+            { id: 4, name: "Casaca de Cuero Rocker", price: 249.90, gender: "hombre", img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500" },
+            { id: 5, name: "Pantalón Cargo Casual", price: 115.00, gender: "hombre", img: "https://images.unsplash.com/photo-1517423568366-8b83523034fd?w=500" },
+            { id: 6, name: "Polera Minimalist Crewneck", price: 99.90, gender: "hombre", img: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500" },
+            
+            // SECCIÓN MUJERES
+            { id: 7, name: "Vestido Floral de Verano", price: 159.90, gender: "mujer", img: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500" },
+            { id: 8, name: "Blusa Elegante Satinada", price: 89.00, gender: "mujer", img: "https://images.unsplash.com/photo-1548624149-f1bc346f353a?w=500" },
+            { id: 9, name: "Jean High Waist Azul", price: 135.00, gender: "mujer", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500" },
+            { id: 10, name: "Chaqueta Cortaviento Pastel", price: 179.90, gender: "mujer", img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500" },
+            { id: 11, name: "Falda Midi Plisada", price: 95.00, gender: "mujer", img: "https://images.unsplash.com/photo-1583496661160-fb488653f5d4?w=500" },
+            { id: 12, name: "Top de Punto Confort", price: 65.00, gender: "mujer", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" }
         ];
 
         let carrito = [];
 
-        /* --- CONTROLADOR DE VISTAS (SPA) --- */
+        /* --- CONTROL DE VISTAS --- */
         function switchView(viewName) {
-            // Ocultar todas las secciones
             document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
-            // Remover estado activo de links de navegación
             document.querySelectorAll('.nav-menu a').forEach(link => link.classList.remove('active'));
             
-            // Activar sección solicitada
             const targetSection = document.getElementById(`view-${viewName}`);
-            if(targetSection) {
-                targetSection.classList.add('active');
-            }
+            if(targetSection) targetSection.classList.add('active');
             
-            // Iluminar enlace del menú correspondiente
             const targetLink = document.getElementById(`nav-${viewName}`);
-            if(targetLink) {
-                targetLink.classList.add('active');
-            }
+            if(targetLink) targetLink.classList.add('active');
         }
 
-        /* --- RENDERIZADO DE CATÁLOGO --- */
+        /* --- RENDERIZADO DE TIENDA --- */
         function renderStore() {
             const gridHombre = document.getElementById('grid-hombre');
             const gridMujer = document.getElementById('grid-mujer');
@@ -701,7 +698,7 @@
             });
         }
 
-        /* --- LOGICA DEL CARRITO --- */
+        /* --- MANEJO DEL CARRITO --- */
         function addToCart(id) {
             const prod = productos.find(p => p.id === id);
             if(prod) {
@@ -716,9 +713,7 @@
         }
 
         function updateCartUI() {
-            // Actualizar contador superior
             document.getElementById('cart-count').innerText = carrito.length;
-
             const cartContainer = document.getElementById('cart-items-container');
             cartContainer.innerHTML = '';
 
@@ -756,30 +751,23 @@
                 return;
             }
             const metodo = document.getElementById('payment-method').value;
-            alert(`¡Pedido Procesado Exitosamente!\nMétodo de pago seleccionado: ${metodo.toUpperCase()}\nGracias por comprar en ModaExpress.`);
+            alert(`¡Pedido Procesado!\nMétodo de pago: ${metodo.toUpperCase()}\n¡Gracias por tu preferencia!`);
             carrito = [];
             updateCartUI();
             switchView('hombre');
         }
 
-        /* --- MÓDULO LOGIN ADMIN (Simulación image_76bce6.png) --- */
+        /* --- LOGIN ADMIN SIMULADO (image_76bce6.png) --- */
         function handleLogin(e) {
             e.preventDefault();
             const u = document.getElementById('login-user').value;
-            const p = document.getElementById('login-pass').value;
-
-            // Validación simple para efectos prácticos de prueba
-            if(u.trim().toLowerCase() === 'admin' || u.trim() !== '') {
-                alert(`Bienvenido, ${u}. Ingresando al panel administrativo.`);
-                switchView('admin');
-                renderAdminTable();
-                document.getElementById('login-form').reset();
-            } else {
-                alert("Credenciales incorrectas.");
-            }
+            alert(`Acceso correcto. Bienvenido al panel ${u}.`);
+            switchView('admin');
+            renderAdminTable();
+            document.getElementById('login-form').reset();
         }
 
-        /* --- CONTROLADOR PANEL ADMINISTRACIÓN --- */
+        /* --- SISTEMA ADMINISTRATIVO --- */
         function renderAdminTable() {
             const tbody = document.getElementById('admin-table-body');
             tbody.innerHTML = '';
@@ -808,29 +796,25 @@
             const gender = document.getElementById('admin-gender').value;
             let img = document.getElementById('admin-img').value;
 
-            if(!img) {
-                img = "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500"; // Imagen genérica de ropa
-            }
+            if(!img) img = "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500";
 
             const newId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1;
-
             productos.push({ id: newId, name, price, gender, img });
             
             document.getElementById('admin-product-form').reset();
             renderAdminTable();
             renderStore();
-            alert("Producto añadido exitosamente a la tienda.");
+            alert("Producto guardado e integrado al catálogo.");
         }
 
         function deleteProduct(id) {
-            if(confirm("¿Estás seguro de eliminar este producto?")) {
+            if(confirm("¿Eliminar este producto permanentemente?")) {
                 productos = productos.filter(p => p.id !== id);
                 renderAdminTable();
                 renderStore();
             }
         }
 
-        /* --- INICIALIZACIÓN DE LA APP --- */
         window.onload = function() {
             renderStore();
             updateCartUI();
