@@ -910,8 +910,6 @@
             { id: 4, name: "Polo Boxy Fit Oversized 'Off-White'", price: 95.00, gender: "hombre", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=500&q=80" },
             { id: 5, name: "Pantalón Cargo Baggy 'Khaki Tech'", price: 175.00, gender: "hombre", img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=500&q=80" },
             { id: 6, name: "Polo Oversized 'Vintage Charcoal'", price: 95.00, gender: "hombre", img: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=500&q=80" },
-            
-            // NUEVO PRODUCTO AGREGADO: id 7
             { id: 7, name: "Casaca Dalia Resentida", price: 195.00, gender: "mujer", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=500&q=80" },
             { id: 8, name: "Pantalón Baggy Wide Leg 'Classic Denim'", price: 169.00, gender: "mujer", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=500&q=80" },
             { id: 9, name: "Buso Baggy Jogger 'Earth Sand'", price: 139.00, gender: "mujer", img: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=500&q=80" },
@@ -1143,7 +1141,8 @@
             const pass = document.getElementById('login-pass').value;
             const errorBox = document.getElementById('login-error-box');
 
-            if (user === 'admin' && pass === 'admin') {
+            // ACTUALIZACIÓN DE CREDENCIALES PEDIDAS: CARLOS / 123
+            if (user === 'CARLOS' && pass === '123') {
                 errorBox.style.display = 'none';
                 document.getElementById('login-form').reset();
                 switchView('admin');
