@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KG Store - Streetwear Premium</title>
-    <!-- Iconos de FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* --- ESTILOS GLOBALES (Paleta: Negro, Blanco y Gris) --- */
@@ -95,6 +94,13 @@
         .cart-icon-container i {
             font-size: 1.4rem;
             color: var(--texto-blanco);
+            transition: transform 0.2s ease;
+        }
+
+        /* Animación de pulso para el carrito */
+        .cart-pop {
+            transform: scale(1.3);
+            color: #55ff55 !important;
         }
 
         .cart-count {
@@ -107,6 +113,36 @@
             padding: 2px 6px;
             border-radius: 50%;
             font-weight: bold;
+        }
+
+        /* --- BUSCADOR --- */
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 2rem auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde-gris);
+            color: #fff;
+            padding: 0.8rem 1rem 0.8rem 2.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--blanco-accento);
+            outline: none;
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--texto-gris);
         }
 
         /* --- CONTENEDOR PRINCIPAL VISTAS --- */
@@ -294,6 +330,36 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
             letter-spacing: 0.5px;
+        }
+
+        /* Tallas */
+        .size-selector-box {
+            margin-bottom: 1rem;
+        }
+        .size-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--texto-gris);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        .size-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .size-btn {
+            background: none;
+            border: 1px solid var(--borde-gris);
+            color: #fff;
+            padding: 2px 8px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .size-btn.selected {
+            background-color: #fff;
+            color: #000;
+            border-color: #fff;
         }
 
         .product-price {
@@ -663,7 +729,6 @@
 </head>
 <body>
 
-    <!-- NAVEGACIÓN -->
     <header>
         <div class="nav-container">
             <div class="logo" onclick="switchView('inicio')">KG</div>
@@ -678,7 +743,7 @@
             </nav>
             <div class="nav-actions">
                 <div class="cart-icon-container" onclick="switchView('carrito')">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <i class="fa-solid fa-bag-shopping" id="cart-icon-main"></i>
                     <span class="cart-count" id="cart-count">0</span>
                 </div>
             </div>
@@ -687,7 +752,6 @@
 
     <div class="container">
 
-        <!-- INICIO -->
         <section id="view-inicio" class="view-section active">
             <div class="hero">
                 <h1>KG <span>STORE</span></h1>
@@ -713,19 +777,24 @@
             <div class="products-grid" id="grid-inicio"></div>
         </section>
 
-        <!-- HOMBRE -->
         <section id="view-hombre" class="view-section">
             <h2 class="section-title">Men's Oversized & Baggy Drop</h2>
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-hombre" class="search-input" placeholder="Buscar prendas de hombre..." oninput="filtrarProductos('hombre')">
+            </div>
             <div class="products-grid" id="grid-hombre"></div>
         </section>
 
-        <!-- MUJER -->
         <section id="view-mujer" class="view-section">
             <h2 class="section-title">Women's Oversized & Baggy Drop</h2>
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-mujer" class="search-input" placeholder="Buscar prendas de mujer..." oninput="filtrarProductos('mujer')">
+            </div>
             <div class="products-grid" id="grid-mujer"></div>
         </section>
 
-        <!-- CARRITO -->
         <section id="view-carrito" class="view-section">
             <h2 class="section-title">Tu Carrito de Compras</h2>
             <div class="cart-layout">
@@ -746,7 +815,6 @@
                         <span id="summary-total">S/. 0.00</span>
                     </div>
 
-                    <!-- SISTEMA DINÁMICO DE PAGO -->
                     <div class="payment-method-box" id="payment-box-section" style="display:none;">
                         <h4>Selecciona Método de Pago</h4>
                         <div class="form-group">
@@ -757,7 +825,6 @@
                             </select>
                         </div>
                         
-                        <!-- Campos para Tarjeta -->
                         <div id="fields-tarjeta" class="payment-details">
                             <label>Número de Tarjeta</label>
                             <input type="text" placeholder="xxxx xxxx xxxx xxxx" id="card-num">
@@ -769,7 +836,6 @@
                             </div>
                         </div>
 
-                        <!-- Campos para Yape -->
                         <div id="fields-yape" class="payment-details" style="display:none;">
                             <label>Número celular asociado a Yape</label>
                             <input type="text" placeholder="987 654 321" id="yape-phone">
@@ -777,7 +843,6 @@
                             <input type="text" placeholder="6 dígitos" id="yape-code">
                         </div>
 
-                        <!-- Campos para Plin -->
                         <div id="fields-plin" class="payment-details" style="display:none;">
                             <label>Número celular asociado a Plin</label>
                             <input type="text" placeholder="987 654 321" id="plin-phone">
@@ -789,7 +854,6 @@
             </div>
         </section>
 
-        <!-- LOGIN -->
         <section id="view-login" class="view-section">
             <div class="login-wrapper">
                 <div class="login-card">
@@ -810,7 +874,6 @@
             </div>
         </section>
 
-        <!-- ADMIN -->
         <section id="view-admin" class="view-section">
             <h2 class="section-title">Panel de Control / Inventario</h2>
             
@@ -870,7 +933,6 @@
             </div>
         </section>
 
-        <!-- CONTACTO -->
         <section id="view-contacto" class="view-section">
             <h2 class="section-title">Encuéntranos</h2>
             <div class="contacto-wrapper">
@@ -891,19 +953,18 @@
 
     </div>
 
-    <!-- MODAL DE COMPRA ÉXITOSA -->
     <div class="modal-overlay" id="success-modal">
         <div class="modal-box">
             <i class="fa-solid fa-circle-check"></i>
             <h3>¡Compra Completada!</h3>
-            <p>Tu orden ha sido procesada con éxito. Muchas gracias por confiar en el Streetwear de KG Store.</p>
+            <p>Tu orden ha sido procesada con éxito. Redirigiendo la confirmación al WhatsApp de KG Store...</p>
             <button class="btn-submit" onclick="closeModal()">Aceptar</button>
         </div>
     </div>
 
     <script>
-        /* --- BASE DE DATOS LOCAL --- */
-        let productos = [
+        /* --- BASE DE DATOS LOCAL CON LOCALSTORAGE (Recomendación 1) --- */
+        let productosIniciales = [
             { id: 1, name: "Pantalón Baggy Denim 'Acid Black'", price: 169.00, gender: "hombre", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=500&q=80" },
             { id: 2, name: "Buso Baggy Jogger 'Heavy Grey'", price: 139.00, gender: "hombre", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80" },
             { id: 3, name: "Hoodie Oversized 'Matrix Black'", price: 179.00, gender: "hombre", img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=500&q=80" },
@@ -919,14 +980,32 @@
             { id: 13, name: "Casaca Cortaviento Oversized 'Cream'", price: 199.00, gender: "mujer", img: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=500&q=80" }
         ];
 
-        let carrito = [];
-        
-        // HISTORIAL DE VENTAS DEMO
-        let ventas = [
-            { total: 348.00, fecha: new Date() }, 
-            { total: 179.00, fecha: new Date(new Date().setDate(new Date().getDate() - 2)) }, 
-            { total: 500.00, fecha: new Date(new Date().setMonth(new Date().getMonth() - 2)) } 
+        let productos = JSON.parse(localStorage.getItem('kg_productos')) || productosIniciales;
+        let carrito = JSON.parse(localStorage.getItem('kg_carrito')) || [];
+        let ventas = JSON.parse(localStorage.getItem('kg_ventas')) || [
+            { total: 348.00, fecha: new Date() }
         ];
+
+        // Guardar cambios locales
+        function guardarEnLocalStorage() {
+            localStorage.setItem('kg_productos', JSON.stringify(productos));
+            localStorage.setItem('kg_carrito', JSON.stringify(carrito));
+            localStorage.setItem('kg_ventas', JSON.stringify(ventas));
+        }
+
+        // Variable global para capturar las tallas seleccionadas en la interfaz de forma temporal
+        let tallasSeleccionadas = {};
+
+        function selectSize(productId, size) {
+            tallasSeleccionadas[productId] = size;
+            const container = document.getElementById(`sizes-${productId}`);
+            if(container) {
+                container.querySelectorAll('.size-btn').forEach(btn => {
+                    btn.classList.remove('selected');
+                    if(btn.innerText === size) btn.classList.add('selected');
+                });
+            }
+        }
 
         function switchView(viewName) {
             document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
@@ -941,43 +1020,64 @@
         }
 
         /* --- RENDERIZADO DE PRODUCTOS --- */
-        function renderStore() {
+        function renderStore(filtroBusqueda = '', generoFiltro = '') {
             const gridInicio = document.getElementById('grid-inicio');
             const gridHombre = document.getElementById('grid-hombre');
             const gridMujer = document.getElementById('grid-mujer');
             
-            gridInicio.innerHTML = '';
-            gridHombre.innerHTML = '';
-            gridMujer.innerHTML = '';
+            if (!filtroBusqueda) {
+                gridInicio.innerHTML = '';
+                productos.slice(0, 4).forEach(prod => gridInicio.appendChild(createProductCard(prod)));
+            }
 
-            // Destacados en Inicio (Primeros 4 productos)
-            productos.slice(0, 4).forEach(prod => {
-                gridInicio.appendChild(createProductCard(prod));
-            });
-
-            // Catálogo completo filtrado
-            productos.forEach(prod => {
-                if (prod.gender === 'hombre') {
+            if (generoFiltro === '' || generoFiltro === 'hombre') {
+                gridHombre.innerHTML = '';
+                productos.filter(p => p.gender === 'hombre' && p.name.toLowerCase().includes(filtroBusqueda.toLowerCase())).forEach(prod => {
                     gridHombre.appendChild(createProductCard(prod));
-                } else if (prod.gender === 'mujer') {
+                });
+            }
+
+            if (generoFiltro === '' || generoFiltro === 'mujer') {
+                gridMujer.innerHTML = '';
+                productos.filter(p => p.gender === 'mujer' && p.name.toLowerCase().includes(filtroBusqueda.toLowerCase())).forEach(prod => {
                     gridMujer.appendChild(createProductCard(prod));
-                }
-            });
+                });
+            }
 
             renderAdminTable();
             calcularGanancias(); 
         }
 
+        /* RECOMENDACIÓN 1: Buscador en tiempo real */
+        function filtrarProductos(genero) {
+            const query = document.getElementById(`search-${genero}`).value;
+            renderStore(query, genero);
+        }
+
         function createProductCard(prod) {
             const card = document.createElement('div');
             card.className = 'product-card';
+            
+            // Inicializar talla por defecto como 'M' si el usuario no hace clic en otra
+            if(!tallasSeleccionadas[prod.id]) tallasSeleccionadas[prod.id] = 'M';
+
             card.innerHTML = `
                 <img src="${prod.img}" alt="${prod.name}" class="product-img">
                 <div class="product-info">
                     <span class="product-badge">${prod.gender} streetwear</span>
                     <h3 class="product-name">${prod.name}</h3>
+                    
+                    <div class="size-selector-box">
+                        <span class="size-label">Selecciona Talla:</span>
+                        <div class="size-options" id="sizes-${prod.id}">
+                            <button class="size-btn ${tallasSeleccionadas[prod.id] === 'M' ? 'selected' : ''}" onclick="selectSize(${prod.id}, 'M')">M</button>
+                            <button class="size-btn ${tallasSeleccionadas[prod.id] === 'L' ? 'selected' : ''}" onclick="selectSize(${prod.id}, 'L')">L</button>
+                            <button class="size-btn ${tallasSeleccionadas[prod.id] === 'XL' ? 'selected' : ''}" onclick="selectSize(${prod.id}, 'XL')">XL</button>
+                        </div>
+                    </div>
+
                     <div class="product-price">S/. ${prod.price.toFixed(2)}</div>
-                    <button class="btn-add-cart" onclick="agregarAlCarrito(${prod.id})">Agregar al Carrito</button>
+                    <button class="btn-add-cart" id="btn-add-${prod.id}" onclick="agregarAlCarrito(${prod.id})">Agregar al Carrito</button>
                 </div>
             `;
             return card;
@@ -988,29 +1088,56 @@
             const producto = productos.find(p => p.id === id);
             if (!producto) return;
 
-            const itemEnCarrito = carrito.find(item => item.id === id);
+            const tallaElegida = tallasSeleccionadas[id] || 'M';
+
+            // El producto se identifica por ID + Talla para separarlos si añaden diferentes tallas
+            const itemEnCarrito = carrito.find(item => item.id === id && item.talla === tallaElegida);
+            
             if (itemEnCarrito) {
                 itemEnCarrito.cantidad++;
             } else {
-                carrito.push({ ...producto, cantidad: 1 });
+                carrito.push({ ...producto, cantidad: 1, talla: tallaElegida });
             }
 
+            guardarEnLocalStorage();
+            actualizarCarrito();
+
+            /* RECOMENDACIÓN 2: Animación Visual Pop */
+            const cartIcon = document.getElementById('cart-icon-main');
+            const btnAdd = document.getElementById(`btn-add-${id}`);
+            
+            cartIcon.classList.add('cart-pop');
+            if(btnAdd) {
+                btnAdd.innerText = "¡Añadido! ✓";
+                btnAdd.style.backgroundColor = "#55ff55";
+                btnAdd.style.color = "#000";
+            }
+
+            setTimeout(() => {
+                cartIcon.classList.remove('cart-pop');
+                if(btnAdd) {
+                    btnAdd.innerText = "Agregar al Carrito";
+                    btnAdd.style.backgroundColor = "var(--blanco-accento)";
+                    btnAdd.style.color = "var(--bg-principal)";
+                }
+            }, 800);
+        }
+
+        function eliminarDelCarrito(id, talla) {
+            carrito = carrito.filter(item => !(item.id === id && item.talla === talla));
+            guardarEnLocalStorage();
             actualizarCarrito();
         }
 
-        function eliminarDelCarrito(id) {
-            carrito = carrito.filter(item => item.id !== id);
-            actualizarCarrito();
-        }
-
-        function cambiarCantidad(id, cambio) {
-            const item = carrito.find(item => item.id === id);
+        function cambiarCantidad(id, talla, cambio) {
+            const item = carrito.find(item => item.id === id && item.talla === talla);
             if (!item) return;
 
             item.cantidad += cambio;
             if (item.cantidad <= 0) {
-                eliminarDelCarrito(id);
+                eliminarDelCarrito(id, talla);
             } else {
+                guardarEnLocalStorage();
                 actualizarCarrito();
             }
         }
@@ -1042,17 +1169,18 @@
                             <img src="${item.img}" style="width: 60px; height: 70px; object-fit: cover; border: 1px solid var(--borde-gris);">
                             <div>
                                 <h4 style="font-size: 0.95rem; max-width: 250px;">${item.name}</h4>
+                                <span style="color: #55ff55; font-size: 0.8rem; font-weight: bold; display: block;">Talla: ${item.talla}</span>
                                 <span style="color: var(--texto-gris); font-size: 0.85rem;">S/. ${item.price.toFixed(2)}</span>
                             </div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 1rem;">
                             <div style="display: flex; align-items: center; gap: 0.5rem; border: 1px solid var(--borde-gris); padding: 2px 8px;">
-                                <span style="cursor:pointer;" onclick="cambiarCantidad(${item.id}, -1)">-</span>
+                                <span style="cursor:pointer;" onclick="cambiarCantidad(${item.id}, '${item.talla}', -1)">-</span>
                                 <span>${item.cantidad}</span>
-                                <span style="cursor:pointer;" onclick="cambiarCantidad(${item.id}, 1)">+</span>
+                                <span style="cursor:pointer;" onclick="cambiarCantidad(${item.id}, '${item.talla}', 1)">+</span>
                             </div>
                             <span style="font-weight: bold;">S/. ${(item.price * item.cantidad).toFixed(2)}</span>
-                            <i class="fa-solid fa-trash" style="cursor: pointer; color: #ff5555;" onclick="eliminarDelCarrito(${item.id})"></i>
+                            <i class="fa-solid fa-trash" style="cursor: pointer; color: #ff5555;" onclick="eliminarDelCarrito(${item.id}, '${item.talla}')"></i>
                         </div>
                     `;
                     container.appendChild(div);
@@ -1072,21 +1200,30 @@
             document.getElementById('fields-plin').style.display = metodo === 'plin' ? 'block' : 'none';
         }
 
+        /* RECOMENDACIÓN 3: Sistema de Checkout Integrado a WhatsApp Real */
+        // Guardaremos globalmente el link de WhatsApp para ejecutarlo al cerrar el modal informativo
+        let whatsappCheckoutUrl = "";
+
         function checkout() {
             if (carrito.length === 0) return;
             
             const metodo = document.getElementById('payment-select').value;
-            if (metodo === 'tarjeta' && !document.getElementById('card-num').value) {
-                alert('Por favor, ingresa los datos de tu tarjeta.');
-                return;
+            let identificadorPago = "";
+
+            if (metodo === 'tarjeta') {
+                const card = document.getElementById('card-num').value;
+                if(!card) { alert('Por favor, ingresa los datos de tu tarjeta.'); return; }
+                identificadorPago = "Tarjeta (Termina en " + card.slice(-4) + ")";
             }
-            if (metodo === 'yape' && !document.getElementById('yape-phone').value) {
-                alert('Por favor, ingresa los datos de tu cuenta Yape.');
-                return;
+            if (metodo === 'yape') {
+                const phone = document.getElementById('yape-phone').value;
+                if(!phone) { alert('Por favor, ingresa tu número de Yape.'); return; }
+                identificadorPago = "Yape al número " + phone;
             }
-            if (metodo === 'plin' && !document.getElementById('plin-phone').value) {
-                alert('Por favor, ingresa tu número de Plin.');
-                return;
+            if (metodo === 'plin') {
+                const phone = document.getElementById('plin-phone').value;
+                if(!phone) { alert('Por favor, ingresa tu número de Plin.'); return; }
+                identificadorPago = "Plin al número " + phone;
             }
 
             const totalCompra = carrito.reduce((acc, item) => acc + (item.price * item.cantidad), 0);
@@ -1094,6 +1231,22 @@
                 total: totalCompra,
                 fecha: new Date()
             });
+            guardarEnLocalStorage();
+
+            // CONSTRUCCIÓN DEL MENSAJE DE WHATSAPP AUTOMÁTICO
+            let textoMensaje = `¡Hola Carlos! 🛒 Deseo concretar mi pedido en *KG Store*:\n\n`;
+            carrito.forEach(item => {
+                textoMensaje += `• ${item.cantidad}x *${item.name}* [Talla: ${item.talla}] - S/. ${(item.price * item.cantidad).toFixed(2)}\n`;
+            });
+            textoMensaje += `\n💵 *Total a Pagar:* S/. ${totalCompra.toFixed(2)}\n`;
+            textoMensaje += `📦 *Envío:* Gratis (Lima)\n`;
+            textoMensaje += `💳 *Método registrado:* ${identificadorPago}\n\n`;
+            textoMensaje += `Quedo atento para la coordinación de la entrega.`;
+
+            // Codificar el texto para que sea compatible con URLs de navegador
+            const mensajeCodificado = encodeURIComponent(textoMensaje);
+            // Reemplaza el número 51987654321 por tu número de tienda real si lo deseas
+            whatsappCheckoutUrl = `https://wa.me/51987654321?text=${mensajeCodificado}`;
 
             document.getElementById('success-modal').style.display = 'flex';
         }
@@ -1101,9 +1254,16 @@
         function closeModal() {
             document.getElementById('success-modal').style.display = 'none';
             carrito = [];
+            guardarEnLocalStorage();
             actualizarCarrito();
             renderStore(); 
             switchView('inicio');
+            
+            // Ejecutar la redirección automática a WhatsApp al cerrar el modal
+            if(whatsappCheckoutUrl !== "") {
+                window.open(whatsappCheckoutUrl, '_blank');
+                whatsappCheckoutUrl = ""; // resetear
+            }
         }
 
         /* --- CALCULAR GANANCIAS --- */
@@ -1141,7 +1301,6 @@
             const pass = document.getElementById('login-pass').value;
             const errorBox = document.getElementById('login-error-box');
 
-            // ACTUALIZACIÓN DE CREDENCIALES PEDIDAS: CARLOS / 123
             if (user === 'CARLOS' && pass === '123') {
                 errorBox.style.display = 'none';
                 document.getElementById('login-form').reset();
@@ -1181,12 +1340,14 @@
             productos.push({ id: nextId, name, price, gender, img });
             document.getElementById('admin-product-form').reset();
             
+            guardarEnLocalStorage();
             renderStore();
         }
 
         function removeProduct(id) {
             if(confirm('¿Seguro que deseas eliminar este producto del inventario?')) {
                 productos = productos.filter(p => p.id !== id);
+                guardarEnLocalStorage();
                 renderStore();
             }
         }
