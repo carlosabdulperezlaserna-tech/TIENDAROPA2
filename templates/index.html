@@ -957,13 +957,13 @@
         <div class="modal-box">
             <i class="fa-solid fa-circle-check"></i>
             <h3>¡Compra Completada!</h3>
-            <p>Tu orden ha sido procesada con éxito. Redirigiendo la confirmación al WhatsApp de KG Store...</p>
+            <p>Tu orden ha sido procesada con éxito. Muchas gracias por confiar en el Streetwear de KG Store.</p>
             <button class="btn-submit" onclick="closeModal()">Aceptar</button>
         </div>
     </div>
 
     <script>
-        /* --- BASE DE DATOS LOCAL CON LOCALSTORAGE (Recomendación 1) --- */
+        /* --- BASE DE DATOS LOCAL CON LOCALSTORAGE --- */
         let productosIniciales = [
             { id: 1, name: "Pantalón Baggy Denim 'Acid Black'", price: 169.00, gender: "hombre", img: "https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=500&q=80" },
             { id: 2, name: "Buso Baggy Jogger 'Heavy Grey'", price: 139.00, gender: "hombre", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=500&q=80" },
@@ -986,14 +986,12 @@
             { total: 348.00, fecha: new Date() }
         ];
 
-        // Guardar cambios locales
         function guardarEnLocalStorage() {
             localStorage.setItem('kg_productos', JSON.stringify(productos));
             localStorage.setItem('kg_carrito', JSON.stringify(carrito));
             localStorage.setItem('kg_ventas', JSON.stringify(ventas));
         }
 
-        // Variable global para capturar las tallas seleccionadas en la interfaz de forma temporal
         let tallasSeleccionadas = {};
 
         function selectSize(productId, size) {
@@ -1048,7 +1046,6 @@
             calcularGanancias(); 
         }
 
-        /* RECOMENDACIÓN 1: Buscador en tiempo real */
         function filtrarProductos(genero) {
             const query = document.getElementById(`search-${genero}`).value;
             renderStore(query, genero);
@@ -1058,7 +1055,6 @@
             const card = document.createElement('div');
             card.className = 'product-card';
             
-            // Inicializar talla por defecto como 'M' si el usuario no hace clic en otra
             if(!tallasSeleccionadas[prod.id]) tallasSeleccionadas[prod.id] = 'M';
 
             card.innerHTML = `
@@ -1089,8 +1085,6 @@
             if (!producto) return;
 
             const tallaElegida = tallasSeleccionadas[id] || 'M';
-
-            // El producto se identifica por ID + Talla para separarlos si añaden diferentes tallas
             const itemEnCarrito = carrito.find(item => item.id === id && item.talla === tallaElegida);
             
             if (itemEnCarrito) {
@@ -1102,7 +1096,7 @@
             guardarEnLocalStorage();
             actualizarCarrito();
 
-            /* RECOMENDACIÓN 2: Animación Visual Pop */
+            // Animación Visual Pop del Carrito
             const cartIcon = document.getElementById('cart-icon-main');
             const btnAdd = document.getElementById(`btn-add-${id}`);
             
@@ -1192,7 +1186,7 @@
             document.getElementById('summary-total').innerText = `S/. ${subtotal.toFixed(2)}`;
         }
 
-        /* --- PASARELA DE PAGO --- */
+        /* --- PASARELA DE PAGO LOCAL --- */
         function togglePaymentFields() {
             const metodo = document.getElementById('payment-select').value;
             document.getElementById('fields-tarjeta').style.display = metodo === 'tarjeta' ? 'block' : 'none';
@@ -1200,30 +1194,19 @@
             document.getElementById('fields-plin').style.display = metodo === 'plin' ? 'block' : 'none';
         }
 
-        /* RECOMENDACIÓN 3: Sistema de Checkout Integrado a WhatsApp Real */
-        // Guardaremos globalmente el link de WhatsApp para ejecutarlo al cerrar el modal informativo
-        let whatsappCheckoutUrl = "";
-
         function checkout() {
             if (carrito.length === 0) return;
             
             const metodo = document.getElementById('payment-select').value;
-            let identificadorPago = "";
 
-            if (metodo === 'tarjeta') {
-                const card = document.getElementById('card-num').value;
-                if(!card) { alert('Por favor, ingresa los datos de tu tarjeta.'); return; }
-                identificadorPago = "Tarjeta (Termina en " + card.slice(-4) + ")";
+            if (metodo === 'tarjeta' && !document.getElementById('card-num').value) {
+                alert('Por favor, ingresa los datos de tu tarjeta.'); return;
             }
-            if (metodo === 'yape') {
-                const phone = document.getElementById('yape-phone').value;
-                if(!phone) { alert('Por favor, ingresa tu número de Yape.'); return; }
-                identificadorPago = "Yape al número " + phone;
+            if (metodo === 'yape' && !document.getElementById('yape-phone').value) {
+                alert('Por favor, ingresa tu número de Yape.'); return;
             }
-            if (metodo === 'plin') {
-                const phone = document.getElementById('plin-phone').value;
-                if(!phone) { alert('Por favor, ingresa tu número de Plin.'); return; }
-                identificadorPago = "Plin al número " + phone;
+            if (metodo === 'plin' && !document.getElementById('plin-phone').value) {
+                alert('Por favor, ingresa tu número de Plin.'); return;
             }
 
             const totalCompra = carrito.reduce((acc, item) => acc + (item.price * item.cantidad), 0);
@@ -1232,21 +1215,6 @@
                 fecha: new Date()
             });
             guardarEnLocalStorage();
-
-            // CONSTRUCCIÓN DEL MENSAJE DE WHATSAPP AUTOMÁTICO
-            let textoMensaje = `¡Hola Carlos! 🛒 Deseo concretar mi pedido en *KG Store*:\n\n`;
-            carrito.forEach(item => {
-                textoMensaje += `• ${item.cantidad}x *${item.name}* [Talla: ${item.talla}] - S/. ${(item.price * item.cantidad).toFixed(2)}\n`;
-            });
-            textoMensaje += `\n💵 *Total a Pagar:* S/. ${totalCompra.toFixed(2)}\n`;
-            textoMensaje += `📦 *Envío:* Gratis (Lima)\n`;
-            textoMensaje += `💳 *Método registrado:* ${identificadorPago}\n\n`;
-            textoMensaje += `Quedo atento para la coordinación de la entrega.`;
-
-            // Codificar el texto para que sea compatible con URLs de navegador
-            const mensajeCodificado = encodeURIComponent(textoMensaje);
-            // Reemplaza el número 51987654321 por tu número de tienda real si lo deseas
-            whatsappCheckoutUrl = `https://wa.me/51987654321?text=${mensajeCodificado}`;
 
             document.getElementById('success-modal').style.display = 'flex';
         }
@@ -1258,12 +1226,6 @@
             actualizarCarrito();
             renderStore(); 
             switchView('inicio');
-            
-            // Ejecutar la redirección automática a WhatsApp al cerrar el modal
-            if(whatsappCheckoutUrl !== "") {
-                window.open(whatsappCheckoutUrl, '_blank');
-                whatsappCheckoutUrl = ""; // resetear
-            }
         }
 
         /* --- CALCULAR GANANCIAS --- */
