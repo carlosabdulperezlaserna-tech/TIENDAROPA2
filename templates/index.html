@@ -189,6 +189,8 @@
 
         @media (max-width: 768px) {
             .categories-banners { grid-template-columns: 1fr; }
+            .admin-layout { grid-template-columns: 1fr !important; }
+            .metrics-grid { grid-template-columns: 1fr !important; }
         }
 
         .banner-card {
@@ -527,6 +529,36 @@
             width: 100%;
         }
 
+        /* --- PANEL DE MÉTRICAS --- */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background-color: var(--bg-tarjeta);
+            border: 1px solid var(--borde-gris);
+            padding: 1.5rem;
+            text-align: center;
+            border-top: 3px solid var(--blanco-accento);
+        }
+
+        .metric-card h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--texto-gris);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-card .metric-val {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--blanco-accento);
+        }
+
         .admin-layout {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -781,6 +813,22 @@
         <!-- ADMIN -->
         <section id="view-admin" class="view-section">
             <h2 class="section-title">Panel de Control / Inventario</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h4>Ganancias del Día</h4>
+                    <div class="metric-val" id="metric-dia">S/. 0.00</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Ganancias del Mes</h4>
+                    <div class="metric-val" id="metric-mes">S/. 0.00</div>
+                </div>
+                <div class="metric-card">
+                    <h4>Ganancias del Año</h4>
+                    <div class="metric-val" id="metric-ano">S/. 0.00</div>
+                </div>
+            </div>
+
             <div class="admin-layout">
                 <div class="admin-box">
                     <h3>Añadir Producto</h3>
@@ -843,7 +891,7 @@
 
     </div>
 
-    <!-- MODAL BONITO DE COMPRA ÉXITOSA -->
+    <!-- MODAL DE COMPRA ÉXITOSA -->
     <div class="modal-overlay" id="success-modal">
         <div class="modal-box">
             <i class="fa-solid fa-circle-check"></i>
@@ -863,15 +911,24 @@
             { id: 5, name: "Pantalón Cargo Baggy 'Khaki Tech'", price: 175.00, gender: "hombre", img: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=500&q=80" },
             { id: 6, name: "Polo Oversized 'Vintage Charcoal'", price: 95.00, gender: "hombre", img: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=500&q=80" },
             
-            { id: 7, name: "Pantalón Baggy Wide Leg 'Classic Denim'", price: 169.00, gender: "mujer", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=500&q=80" },
-            { id: 8, name: "Buso Baggy Jogger 'Earth Sand'", price: 139.00, gender: "mujer", img: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=500&q=80" },
-            { id: 9, name: "Hoodie Oversized 'Muted Cocoa'", price: 179.00, gender: "mujer", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80" },
-            { id: 10, name: "Polo Boxy Fit Oversized 'Aesthetic Olive'", price: 95.00, gender: "mujer", img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=500&q=80" },
-            { id: 11, name: "Pantalón Parachute Baggy 'Shadow'", price: 179.00, gender: "mujer", img: "https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&w=500&q=80" },
-            { id: 12, name: "Casaca Cortaviento Oversized 'Cream'", price: 199.00, gender: "mujer", img: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=500&q=80" }
+            // NUEVO PRODUCTO AGREGADO: id 7
+            { id: 7, name: "Casaca Dalia Resentida", price: 195.00, gender: "mujer", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=500&q=80" },
+            { id: 8, name: "Pantalón Baggy Wide Leg 'Classic Denim'", price: 169.00, gender: "mujer", img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=500&q=80" },
+            { id: 9, name: "Buso Baggy Jogger 'Earth Sand'", price: 139.00, gender: "mujer", img: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=500&q=80" },
+            { id: 10, name: "Hoodie Oversized 'Muted Cocoa'", price: 179.00, gender: "mujer", img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=500&q=80" },
+            { id: 11, name: "Polo Boxy Fit Oversized 'Aesthetic Olive'", price: 95.00, gender: "mujer", img: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=500&q=80" },
+            { id: 12, name: "Pantalón Parachute Baggy 'Shadow'", price: 179.00, gender: "mujer", img: "https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&w=500&q=80" },
+            { id: 13, name: "Casaca Cortaviento Oversized 'Cream'", price: 199.00, gender: "mujer", img: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=500&q=80" }
         ];
 
         let carrito = [];
+        
+        // HISTORIAL DE VENTAS DEMO
+        let ventas = [
+            { total: 348.00, fecha: new Date() }, 
+            { total: 179.00, fecha: new Date(new Date().setDate(new Date().getDate() - 2)) }, 
+            { total: 500.00, fecha: new Date(new Date().setMonth(new Date().getMonth() - 2)) } 
+        ];
 
         function switchView(viewName) {
             document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
@@ -885,6 +942,7 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
+        /* --- RENDERIZADO DE PRODUCTOS --- */
         function renderStore() {
             const gridInicio = document.getElementById('grid-inicio');
             const gridHombre = document.getElementById('grid-hombre');
@@ -894,16 +952,22 @@
             gridHombre.innerHTML = '';
             gridMujer.innerHTML = '';
 
-            productos.slice(0, 3).forEach(prod => gridInicio.appendChild(createProductCard(prod)));
-            productos.slice(6, 9).forEach(prod => gridInicio.appendChild(createProductCard(prod)));
+            // Destacados en Inicio (Primeros 4 productos)
+            productos.slice(0, 4).forEach(prod => {
+                gridInicio.appendChild(createProductCard(prod));
+            });
 
+            // Catálogo completo filtrado
             productos.forEach(prod => {
-                if(prod.gender === 'hombre') {
+                if (prod.gender === 'hombre') {
                     gridHombre.appendChild(createProductCard(prod));
-                } else {
+                } else if (prod.gender === 'mujer') {
                     gridMujer.appendChild(createProductCard(prod));
                 }
             });
+
+            renderAdminTable();
+            calcularGanancias(); 
         }
 
         function createProductCard(prod) {
@@ -912,129 +976,226 @@
             card.innerHTML = `
                 <img src="${prod.img}" alt="${prod.name}" class="product-img">
                 <div class="product-info">
-                    <div class="product-badge">${prod.gender === 'hombre' ? 'Varones' : 'Damas'}</div>
+                    <span class="product-badge">${prod.gender} streetwear</span>
                     <h3 class="product-name">${prod.name}</h3>
                     <div class="product-price">S/. ${prod.price.toFixed(2)}</div>
-                    <button class="btn-add-cart" onclick="addToCart(${prod.id})">Agregar al carrito</button>
+                    <button class="btn-add-cart" onclick="agregarAlCarrito(${prod.id})">Agregar al Carrito</button>
                 </div>
             `;
             return card;
         }
 
-        function addToCart(id) {
-            const prod = productos.find(p => p.id === id);
-            if(prod) { carrito.push(prod); updateCartUI(); }
-        }
+        /* --- LOGICA DEL CARRITO --- */
+        function agregarAlCarrito(id) {
+            const producto = productos.find(p => p.id === id);
+            if (!producto) return;
 
-        function removeFromCart(index) {
-            carrito.splice(index, 1); updateCartUI();
-        }
-
-        function updateCartUI() {
-            document.getElementById('cart-count').innerText = carrito.length;
-            const cartContainer = document.getElementById('cart-items-container');
-            const paymentBox = document.getElementById('payment-box-section');
-            cartContainer.innerHTML = '';
-
-            if(carrito.length === 0) {
-                cartContainer.innerHTML = '<div class="empty-message">Tu carrito está vacío.</div>';
-                document.getElementById('summary-subtotal').innerText = 'S/. 0.00';
-                document.getElementById('summary-total').innerText = 'S/. 0.00';
-                paymentBox.style.display = 'none';
-                return;
+            const itemEnCarrito = carrito.find(item => item.id === id);
+            if (itemEnCarrito) {
+                itemEnCarrito.cantidad++;
+            } else {
+                carrito.push({ ...producto, cantidad: 1 });
             }
 
-            paymentBox.style.display = 'block';
-            let subtotal = 0;
-            carrito.forEach((item, index) => {
-                subtotal += item.price;
-                const itemRow = document.createElement('div');
-                itemRow.className = 'cart-item';
-                itemRow.innerHTML = `
-                    <div>
-                        <h4>${item.name}</h4>
-                        <p>S/. ${item.price.toFixed(2)}</p>
-                    </div>
-                    <button onclick="removeFromCart(${index})" style="background:none; border:none; color:white; cursor:pointer;"><i class="fa-solid fa-trash-can"></i></button>
-                `;
-                cartContainer.appendChild(itemRow);
-            });
+            actualizarCarrito();
+        }
 
+        function eliminarDelCarrito(id) {
+            carrito = carrito.filter(item => item.id !== id);
+            actualizarCarrito();
+        }
+
+        function cambiarCantidad(id, cambio) {
+            const item = carrito.find(item => item.id === id);
+            if (!item) return;
+
+            item.cantidad += cambio;
+            if (item.cantidad <= 0) {
+                eliminarDelCarrito(id);
+            } else {
+                actualizarCarrito();
+            }
+        }
+
+        function actualizarCarrito() {
+            const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+            document.getElementById('cart-count').innerText = totalItems;
+
+            const container = document.getElementById('cart-items-container');
+            const paymentBox = document.getElementById('payment-box-section');
+            const btnCheckout = document.getElementById('btn-checkout');
+
+            if (carrito.length === 0) {
+                container.innerHTML = '<div class="empty-message">Tu carrito está vacío.</div>';
+                paymentBox.style.display = 'none';
+                btnCheckout.disabled = true;
+                btnCheckout.style.opacity = '0.5';
+            } else {
+                container.innerHTML = '';
+                paymentBox.style.display = 'block';
+                btnCheckout.disabled = false;
+                btnCheckout.style.opacity = '1';
+
+                carrito.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'cart-item';
+                    div.innerHTML = `
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <img src="${item.img}" style="width: 60px; height: 70px; object-fit: cover; border: 1px solid var(--borde-gris);">
+                            <div>
+                                <h4 style="font-size: 0.95rem; max-width: 250px;">${item.name}</h4>
+                                <span style="color: var(--texto-gris); font-size: 0.85rem;">S/. ${item.price.toFixed(2)}</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; border: 1px solid var(--borde-gris); padding: 2px 8px;">
+                                <span style="cursor:pointer;" onclick="cambiarCantidad(${item.id}, -1)">-</span>
+                                <span>${item.cantidad}</span>
+                                <span style="cursor:pointer;" onclick="cambiarCantidad(${item.id}, 1)">+</span>
+                            </div>
+                            <span style="font-weight: bold;">S/. ${(item.price * item.cantidad).toFixed(2)}</span>
+                            <i class="fa-solid fa-trash" style="cursor: pointer; color: #ff5555;" onclick="eliminarDelCarrito(${item.id})"></i>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+
+            const subtotal = carrito.reduce((acc, item) => acc + (item.price * item.cantidad), 0);
             document.getElementById('summary-subtotal').innerText = `S/. ${subtotal.toFixed(2)}`;
             document.getElementById('summary-total').innerText = `S/. ${subtotal.toFixed(2)}`;
         }
 
-        /* --- CONTROL DE FORMULARIOS DE PAGO --- */
+        /* --- PASARELA DE PAGO --- */
         function togglePaymentFields() {
-            const method = document.getElementById('payment-select').value;
-            document.getElementById('fields-tarjeta').style.display = method === 'tarjeta' ? 'block' : 'none';
-            document.getElementById('fields-yape').style.display = method === 'yape' ? 'block' : 'none';
-            document.getElementById('fields-plin').style.display = method === 'plin' ? 'block' : 'none';
+            const metodo = document.getElementById('payment-select').value;
+            document.getElementById('fields-tarjeta').style.display = metodo === 'tarjeta' ? 'block' : 'none';
+            document.getElementById('fields-yape').style.display = metodo === 'yape' ? 'block' : 'none';
+            document.getElementById('fields-plin').style.display = metodo === 'plin' ? 'block' : 'none';
         }
 
         function checkout() {
-            if(carrito.length === 0) return;
+            if (carrito.length === 0) return;
             
-            // Simular validación rápida
-            const method = document.getElementById('payment-select').value;
-            if(method === 'tarjeta' && !document.getElementById('card-num').value) {
-                alert('Por favor ingresa los datos de tu tarjeta.'); return;
-            } else if(method === 'yape' && !document.getElementById('yape-phone').value) {
-                alert('Por favor ingresa tu número de Yape.'); return;
-            } else if(method === 'plin' && !document.getElementById('plin-phone').value) {
-                alert('Por favor ingresa tu número de Plin.'); return;
+            const metodo = document.getElementById('payment-select').value;
+            if (metodo === 'tarjeta' && !document.getElementById('card-num').value) {
+                alert('Por favor, ingresa los datos de tu tarjeta.');
+                return;
+            }
+            if (metodo === 'yape' && !document.getElementById('yape-phone').value) {
+                alert('Por favor, ingresa los datos de tu cuenta Yape.');
+                return;
+            }
+            if (metodo === 'plin' && !document.getElementById('plin-phone').value) {
+                alert('Por favor, ingresa tu número de Plin.');
+                return;
             }
 
-            // Mostrar el modal elegante central
+            const totalCompra = carrito.reduce((acc, item) => acc + (item.price * item.cantidad), 0);
+            ventas.push({
+                total: totalCompra,
+                fecha: new Date()
+            });
+
             document.getElementById('success-modal').style.display = 'flex';
         }
 
         function closeModal() {
             document.getElementById('success-modal').style.display = 'none';
-            carrito = []; 
-            updateCartUI(); 
+            carrito = [];
+            actualizarCarrito();
+            renderStore(); 
             switchView('inicio');
         }
 
-        function handleLogin(e) {
-            e.preventDefault();
+        /* --- CALCULAR GANANCIAS --- */
+        function calcularGanancias() {
+            const ahora = new Date();
+            let gananciaDia = 0;
+            let gananciaMes = 0;
+            let gananciaAno = 0;
+
+            ventas.forEach(venta => {
+                const fechaVenta = new Date(venta.fecha);
+
+                if (fechaVenta.getFullYear() === ahora.getFullYear()) {
+                    gananciaAno += venta.total;
+
+                    if (fechaVenta.getMonth() === ahora.getMonth()) {
+                        gananciaMes += venta.total;
+
+                        if (fechaVenta.getDate() === ahora.getDate()) {
+                            gananciaDia += venta.total;
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('metric-dia').innerText = `S/. ${gananciaDia.toFixed(2)}`;
+            document.getElementById('metric-mes').innerText = `S/. ${gananciaMes.toFixed(2)}`;
+            document.getElementById('metric-ano').innerText = `S/. ${gananciaAno.toFixed(2)}`;
+        }
+
+        /* --- LOGIN Y PANEL ADMINISTRATIVO --- */
+        function handleLogin(event) {
+            event.preventDefault();
             const user = document.getElementById('login-user').value;
             const pass = document.getElementById('login-pass').value;
-            if (user === 'carlos' && pass === '123') {
-                switchView('admin'); renderAdminTable();
+            const errorBox = document.getElementById('login-error-box');
+
+            if (user === 'admin' && pass === 'admin') {
+                errorBox.style.display = 'none';
+                document.getElementById('login-form').reset();
+                switchView('admin');
+                calcularGanancias();
             } else {
-                document.getElementById('login-error-box').style.display = 'block';
+                errorBox.style.display = 'flex';
             }
         }
 
         function renderAdminTable() {
             const tbody = document.getElementById('admin-table-body');
             tbody.innerHTML = '';
+
             productos.forEach(prod => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td>#${prod.id}</td><td>${prod.name}</td><td>S/. ${prod.price.toFixed(2)}</td><td style="text-transform:capitalize">${prod.gender}</td><td><button onclick="deleteProduct(${prod.id})">Borrar</button></td>`;
+                tr.innerHTML = `
+                    <td>#${prod.id}</td>
+                    <td>${prod.name}</td>
+                    <td>S/. ${prod.price.toFixed(2)}</td>
+                    <td style="text-transform: uppercase; font-size: 0.8rem;">${prod.gender}</td>
+                    <td><button style="background: none; border: none; color: #ff5555; cursor: pointer; font-weight: bold;" onclick="removeProduct(${prod.id})">Eliminar</button></td>
+                `;
                 tbody.appendChild(tr);
             });
         }
 
-        function addProduct(e) {
-            e.preventDefault();
+        function addProduct(event) {
+            event.preventDefault();
             const name = document.getElementById('admin-name').value;
             const price = parseFloat(document.getElementById('admin-price').value);
             const gender = document.getElementById('admin-gender').value;
             const img = document.getElementById('admin-img').value;
-            const newId = productos.length + 1;
-            productos.push({ id: newId, name, price, gender, img });
-            renderAdminTable(); renderStore();
+
+            const nextId = productos.length > 0 ? Math.max(...productos.map(p => p.id)) + 1 : 1;
+
+            productos.push({ id: nextId, name, price, gender, img });
             document.getElementById('admin-product-form').reset();
+            
+            renderStore();
         }
 
-        function deleteProduct(id) {
-            productos = productos.filter(p => p.id !== id);
-            renderAdminTable(); renderStore();
+        function removeProduct(id) {
+            if(confirm('¿Seguro que deseas eliminar este producto del inventario?')) {
+                productos = productos.filter(p => p.id !== id);
+                renderStore();
+            }
         }
 
-        window.onload = function() { renderStore(); updateCartUI(); };
+        window.onload = () => {
+            renderStore();
+            actualizarCarrito();
+        };
     </script>
 </body>
 </html>
